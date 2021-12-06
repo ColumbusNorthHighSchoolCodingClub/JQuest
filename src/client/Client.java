@@ -1,54 +1,79 @@
 package client;
 
+import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public abstract class Client {
+import common.SocketContainer;
 
-	protected final String identifier;
-	protected final String ip;
-	protected String serverIp;
-	
-	public Client(String identifier) throws Exception {
-		this.identifier = identifier;
-		this.ip = InetAddress.getLocalHost().toString();
-	}
+public class Client {
 
-	public String getIdentifier() {
-		return identifier;
-	}
+    private final String identifier;
+    private final String ip;
+    private String serverIp;
+    private Socket socket;
+    private SocketContainer socketContainer;
 
-	public String getIp() {
-		return ip;
-	}
+    public Client(String identifier) throws IOException {
+        this.identifier = identifier;
+        this.ip = InetAddress.getLocalHost().toString();
+        System.out.println("Client " + identifier + " has been started at " + ip);
+    }
 
-	public String getServerIp() {
-		return serverIp;
-	}
+    public String getIdentifier() {
+        return identifier;
+    }
 
-	public void setServerIp(String serverIp) {
-		this.serverIp = serverIp;
-	}
+    public String getIp() {
+        return ip;
+    }
 
-	/**
-	 * @return True if connection is successful
-	 */
-	public boolean connectToServer(String serverIp) {
-		this.serverIp = serverIp;
-		return false;
-	}
-	
-	public abstract String packData();
-	
-	public void sendData(String data) {
-		
-	}
-	
-	public String receiveData() {
-		
-		return "";
-	}
-	
-	public abstract void unpackData(String data);
-	
-	
+    public String getServerIp() {
+        return serverIp;
+    }
+
+    public void setServerIp(String serverIp) {
+        this.serverIp = serverIp;
+    }
+
+    /**
+     * @return True if connection is successful
+     */
+    public boolean connectToServer(String serverIp, int port) {
+        this.serverIp = serverIp;
+        try {
+            socket = new Socket(serverIp, port);
+            System.out.println("Client " + identifier + " has connected to server " + serverIp + " on port " + port);
+            socketContainer = new SocketContainer(socket);
+            socketContainer.write("ID:" + identifier);
+
+            TimerTask task = new TimerTask() {
+
+                @Override
+                public void run() {
+                    socketContainer.write("PING:" + System.currentTimeMillis());
+                    System.out.println("Ping!");
+                }
+
+            };
+            Timer timer = new Timer();
+            timer.schedule(task, 0, 200);
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+//    //data comes from GameManager and contains HashMap entry with gameID
+//    public abstract String packData(HashMap<String,String> data);
+//    
+//    
+//    //unpacks, and after unpacking, client checks gameID and sends to respective game instance
+//    public abstract HashMap<String,String> unpackData(String data);
+
 }
