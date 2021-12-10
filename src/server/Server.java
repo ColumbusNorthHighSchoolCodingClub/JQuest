@@ -18,7 +18,7 @@ public class Server {
         this.ip = InetAddress.getLocalHost().toString();
         this.port = port;
         this.ss = new ServerSocket(port);
-        System.out.println("Server has been started.");
+        System.out.println("Server has been started on port " + port);
     }
 
     public void acceptConnections() {
@@ -33,7 +33,6 @@ public class Server {
                     Socket clientSocket = ss.accept();
                     String clientIp = clientSocket.getInetAddress().toString();
                     System.out.println("Client has connected at " + clientIp);
-//                    clientConnections.put(clientIp, clientSocket);
                     new ServerThread(clientSocket).start();
 
                 } catch (IOException e) {
@@ -43,7 +42,7 @@ public class Server {
         };
 
         Timer timer = new Timer();
-        timer.schedule(task, 0, 200);
+        timer.schedule(task, 0, 1);
 
     }
 

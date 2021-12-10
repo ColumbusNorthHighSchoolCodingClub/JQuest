@@ -7,7 +7,7 @@ public class ServerRunner {
             Server server = new Server(6979);
             server.acceptConnections();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
     }
 

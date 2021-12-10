@@ -1,10 +1,13 @@
 package common;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Socket;
 
 public class SocketContainer {
@@ -17,9 +20,12 @@ public class SocketContainer {
 
     public SocketContainer(Socket socket) throws IOException {
         this.socket = socket;
+
         InputStream inStream = socket.getInputStream();
+        OutputStream outStream = socket.getOutputStream();
+
         in = new DataInputStream(new BufferedInputStream(inStream));
-        out = new DataOutputStream(socket.getOutputStream());
+        out = new DataOutputStream(outStream);
     }
 
     public Socket getSocket() {
@@ -30,7 +36,7 @@ public class SocketContainer {
         try {
             return in.readUTF();
         } catch (IOException e) {
-            e.printStackTrace();
+//            System.out.println("Unable to read from " + identifier);
         }
         return null;
     }
@@ -40,7 +46,7 @@ public class SocketContainer {
             out.writeUTF(str);
             out.flush();
         } catch (IOException e) {
-            e.printStackTrace();
+//            System.out.println("Unable to write to " + identifier);
         }
     }
 

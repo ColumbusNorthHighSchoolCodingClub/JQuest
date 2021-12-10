@@ -7,40 +7,44 @@ import common.SocketContainer;
 
 public class ServerThread extends Thread {
 
+    private final int maxPingDelay = 500;
+
     private final Socket socket;
     private final SocketContainer socketContainer;
+
+    private long lastPingTime;
 
     public ServerThread(Socket socket) throws IOException {
         this.socket = socket;
         socketContainer = new SocketContainer(socket);
+        lastPingTime = System.currentTimeMillis();
     }
 
     @Override
     public void run() {
-        try {
-            while (!socket.isClosed()) {
+        while (System.currentTimeMillis() - lastPingTime < maxPingDelay) {
 
-                if (socketContainer.read() == null) {
-                    System.out.println(socketContainer.getIdentifier() + " has disconnected.");
-                    socket.close();
-                }
+            String input = socketContainer.read();
 
-                String input = socketContainer.read().trim();
+            if (input != null) {
+                lastPingTime = System.currentTimeMillis();
+//                input = input.trim();
 
+//                  System.out.println(input);
                 if (input.startsWith("ID:")) {
                     String id = input.substring(3);
                     socketContainer.setIdentifier(id);
                     System.out.println("ID " + id + " set for " + socket.getInetAddress());
                 } else if (input.startsWith("PING:")) {
                     System.out.println(
-                            "Ping received from " + socketContainer.getIdentifier() + " at time " + input.substring(5));
+                            "Ping number " + input.substring(5) + " received from " + socketContainer.getIdentifier());
                 }
-
             }
 
-        } catch (IOException e) {
-
         }
+
+        System.out.println("Socket closed.");
+//        this.interrupt();
     }
 
 }

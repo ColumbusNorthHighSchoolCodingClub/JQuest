@@ -39,6 +39,8 @@ public class Client {
         this.serverIp = serverIp;
     }
 
+    int pingCount = 0;
+
     /**
      * @return True if connection is successful
      */
@@ -49,23 +51,27 @@ public class Client {
             System.out.println("Client " + identifier + " has connected to server " + serverIp + " on port " + port);
             socketContainer = new SocketContainer(socket);
             socketContainer.write("ID:" + identifier);
+            socketContainer.setIdentifier(identifier);
 
             TimerTask task = new TimerTask() {
 
                 @Override
                 public void run() {
-                    socketContainer.write("PING:" + System.currentTimeMillis());
+                    socketContainer.write("PING:" + pingCount);
+                    System.out.println(pingCount);
+                    pingCount++;
                     System.out.println("Ping!");
                 }
 
             };
             Timer timer = new Timer();
-            timer.schedule(task, 0, 200);
+            timer.schedule(task, 100, 200);
 
             return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
+
         return false;
     }
 
