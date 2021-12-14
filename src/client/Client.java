@@ -3,7 +3,6 @@ package client;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,69 +10,90 @@ import common.SocketContainer;
 
 public class Client {
 
-    private final String identifier;
-    private final String ip;
-    private String serverIp;
-    private Socket socket;
-    private SocketContainer socketContainer;
+	private final String identifier;
+	private final String ip;
+	private String serverIp;
+	private Socket socket;
+	private SocketContainer socketContainer;
 
-    public Client(String identifier) throws IOException {
-        this.identifier = identifier;
-        this.ip = InetAddress.getLocalHost().toString();
-        System.out.println("Client " + identifier + " has been started at " + ip);
-    }
+	public Client(String identifier) throws IOException {
+		this.identifier = identifier;
+		this.ip = InetAddress.getLocalHost().toString();
+		System.out.println("Client " + identifier + " has been started at " + ip);
+	}
 
-    public String getIdentifier() {
-        return identifier;
-    }
+	public String getIdentifier() {
+		return identifier;
+	}
 
-    public String getIp() {
-        return ip;
-    }
+	public String getIp() {
+		return ip;
+	}
 
-    public String getServerIp() {
-        return serverIp;
-    }
+	public String getServerIp() {
+		return serverIp;
+	}
 
-    public void setServerIp(String serverIp) {
-        this.serverIp = serverIp;
-    }
+	public void setServerIp(String serverIp) {
+		this.serverIp = serverIp;
+	}
 
-    int pingCount = 0;
+	int pingCount = 0;
 
-    /**
-     * @return True if connection is successful
-     */
-    public boolean connectToServer(String serverIp, int port) {
-        this.serverIp = serverIp;
-        try {
-            socket = new Socket(serverIp, port);
-            System.out.println("Client " + identifier + " has connected to server " + serverIp + " on port " + port);
-            socketContainer = new SocketContainer(socket);
-            socketContainer.write("ID:" + identifier);
-            socketContainer.setIdentifier(identifier);
+	/**
+	 * @return True if connection is successful
+	 */
+	public boolean connectToServer(String serverIp, int port) {
+		this.serverIp = serverIp;
+		try {
+			socket = new Socket(serverIp, port);
+			System.out.println("Client " + identifier + " has connected to server " + serverIp + " on port " + port);
+			socketContainer = new SocketContainer(socket);
+			socketContainer.write("ID:" + identifier);
+			socketContainer.setIdentifier(identifier);
 
-            TimerTask task = new TimerTask() {
+			TimerTask task = new TimerTask() {
 
-                @Override
-                public void run() {
-                    socketContainer.write("PING:" + pingCount);
-                    System.out.println(pingCount);
-                    pingCount++;
-                    System.out.println("Ping!");
-                }
+				@Override
+				public void run() {
+					socketContainer.write("PING:" + pingCount);
+					System.out.println(pingCount);
+					pingCount++;
+					System.out.println("Ping!");
+				}
 
-            };
-            Timer timer = new Timer();
-            timer.schedule(task, 100, 200);
+			};
+			Timer timer = new Timer();
+			timer.schedule(task, 100, 200);
 
-            return true;
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+			return true;
+		} catch (IOException e) {
+			System.out.println(e);
+		}
 
-        return false;
-    }
+		return false;
+	}
+
+	public String sendAndAwaitReply(String data) {
+
+		socketContainer.write(data);
+
+		long initialTime = System.currentTimeMillis();
+		long stopTime = initialTime + 1000;
+
+		String received = socketContainer.read();
+
+		while (received == null) {
+			received = socketContainer.read();
+
+			if (System.currentTimeMillis() > stopTime) {
+				return "Error: Data retrieval unsuccessful";
+			}
+		}
+
+		return received;
+
+	}
 
 //    //data comes from GameManager and contains HashMap entry with gameID
 //    public abstract String packData(HashMap<String,String> data);
