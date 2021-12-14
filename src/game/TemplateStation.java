@@ -22,13 +22,13 @@ public class TemplateStation {
 	
 	public void authenticatePlayer(String id) {
 		
-		String profileData = c.sendAndAwaitReply(id);
+		var profileData = c.sendAndAwaitReply(id);
 		currentUserProfile = JsonManager.getMap(profileData);
 		
 	}
 	
 	public void updateUserProfileOnServer() {
-		String exportData = JsonManager.getJSONString(currentUserProfile);
+		var exportData = JsonManager.getJSONString(currentUserProfile);
 		c.sendAndAwaitReply(exportData);
 	}
 	

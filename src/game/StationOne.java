@@ -9,7 +9,7 @@ public class StationOne extends TemplateStation {
 	}
 
 	public static void main(String...args) throws IOException {
-		StationOne st = new StationOne("StationOne");
+		var st = new StationOne("StationOne");
 
 	}
 

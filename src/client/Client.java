@@ -5,6 +5,8 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 import common.SocketContainer;
 
@@ -78,10 +80,10 @@ public class Client {
 
 		socketContainer.write(data);
 
-		long initialTime = System.currentTimeMillis();
-		long stopTime = initialTime + 1000;
+		var initialTime = System.currentTimeMillis();
+		var stopTime = initialTime + 1000;
 
-		String received = socketContainer.read();
+		var received = socketContainer.read();
 
 		while (received == null) {
 			received = socketContainer.read();
@@ -93,6 +95,19 @@ public class Client {
 
 		return received;
 
+	}
+
+	public String sendAsync(String data) {
+		var complete = CompletableFuture.supplyAsync(() -> {
+			return sendAndAwaitReply(data);
+		});
+		try {
+			return complete.get();
+		} catch (Exception e) {
+
+		}
+		return null;
+		
 	}
 
 //    //data comes from GameManager and contains HashMap entry with gameID
