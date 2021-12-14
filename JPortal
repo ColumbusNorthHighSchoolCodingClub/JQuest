@@ -1,0 +1,59 @@
+//Class JPortal by @tiffu-coder and @22brunettek
+
+//JPortal is the portal used to travel through time. Screen is divided into thirds, with the left third displaying the timelines and the right third displaying the JPortal image.
+//Will present images that represent different timelines to travel to that the player can then select. Will then transport player to the timeline, returning the select timeline 
+//to the server. Images are shown in a display screen with scroll buttons to access the different timelines. When timeline is selected, image will appear in JPortal and then the 
+//screen will fade to black, say welcome to x-timeline, and then return to menu. If the player does nothing for 30 seconds, the screen will fade to black and return to the menu. 
+//Some timelines will be locked and must be unlocked later.
+
+public class JPortal
+{
+  //instance variables
+  ArrayList<Images> timelineImg;
+  int displayCount;
+  
+  //constructors
+  public JPortal()
+  {
+    timelineImg = new ArrayList<>();
+    displayCount = 0;
+  }
+  
+  //methods
+  public void scroll()
+  {
+	  if(direction==up)
+	  {
+	    displayCount--;
+	  }
+	  else(direction==down)
+	  {
+	    displayCount++;
+	  }
+
+    if(displayCount<0)
+	  {
+	    displayCount = timelineImg.size() + displayCount;
+    }
+  }
+
+  public void travel()
+  {
+    //return new timeline for player to server
+    player.setTimeline();
+  }
+
+  public void display()
+  {
+	  //what timeline is the player in? display appropriate background image 
+	  player.getTimeline();
+     
+    //display images
+    for(int c=displayCount; c<=displayCount+3; c++)
+	  {
+      //make sure c isn’t over list size
+	    Image img = timelineImg.get(c);
+      //display img on screen
+	  }
+  }
+}
