@@ -8,8 +8,12 @@ public class StationOne extends TemplateStation {
 		super(stationName);
 	}
 
-	public static void main(String...args) throws IOException {
+	public static void main(String... args) throws IOException, InterruptedException {
 		var st = new StationOne("StationOne");
+
+		Thread.sleep(3000);
+
+		st.authenticatePlayer("1");
 
 	}
 

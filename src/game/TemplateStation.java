@@ -22,9 +22,9 @@ public class TemplateStation {
 	
 	public void authenticatePlayer(String id) {
 		
-		var profileData = c.sendAndAwaitReply(id);
+		var profileData = c.sendAndAwaitReply("Authenticate:"+id);
 		currentUserProfile = JsonManager.getMap(profileData);
-		
+		System.out.println(currentUserProfile);
 	}
 	
 	public void updateUserProfileOnServer() {

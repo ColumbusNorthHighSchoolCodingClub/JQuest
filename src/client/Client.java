@@ -6,7 +6,6 @@ import java.net.Socket;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 import common.SocketContainer;
 
@@ -59,9 +58,9 @@ public class Client {
 				@Override
 				public void run() {
 					socketContainer.write("PING:" + pingCount);
-					System.out.println(pingCount);
+					// System.out.println(pingCount);
 					pingCount++;
-					System.out.println("Ping!");
+					// System.out.println("Ping!");
 				}
 
 			};
@@ -107,7 +106,7 @@ public class Client {
 
 		}
 		return null;
-		
+
 	}
 
 //    //data comes from GameManager and contains HashMap entry with gameID
