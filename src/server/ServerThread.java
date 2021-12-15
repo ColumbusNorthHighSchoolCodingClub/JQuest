@@ -48,6 +48,12 @@ public class ServerThread extends Thread {
 					var profile = outer.getAllProfiles().get(playerId);
 					socketContainer.write(JsonManager.getJSONString(profile));
 
+				} else if (input.startsWith("UPDATE:")) {
+					String prof = input.replace("UPDATE:", "");
+					String[] data = input.split("%");
+					outer.getAllProfiles().put(data[0], JsonManager.getMap(data[2]));
+					
+					
 				}
 			}
 

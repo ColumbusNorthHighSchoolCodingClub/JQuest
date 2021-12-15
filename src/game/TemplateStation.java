@@ -10,6 +10,7 @@ public class TemplateStation {
 
 	Map<String,String> currentUserProfile;
 	private Client c;
+	private String currentUserId;
 	
 	public TemplateStation(String stationName) throws IOException {
 		c = new Client(stationName);
@@ -24,12 +25,13 @@ public class TemplateStation {
 		
 		var profileData = c.sendAndAwaitReply("Authenticate:"+id);
 		currentUserProfile = JsonManager.getMap(profileData);
+		currentUserId = id;
 		System.out.println(currentUserProfile);
 	}
 	
 	public void updateUserProfileOnServer() {
 		var exportData = JsonManager.getJSONString(currentUserProfile);
-		c.sendAndAwaitReply(exportData);
+		c.sendAndAwaitReply("UPDATE:"+currentUserId + "%" + exportData);
 	}
 	
 	
