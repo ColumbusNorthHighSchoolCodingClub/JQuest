@@ -1,6 +1,7 @@
 package game;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class StationOne extends TemplateStation {
 
@@ -13,7 +14,9 @@ public class StationOne extends TemplateStation {
 
 		Thread.sleep(3000);
 
-		st.authenticatePlayer("1");
+		Scanner s = new Scanner(System.in);
+		System.out.println("Please enter your player ID");
+		st.authenticatePlayer(s.next());
 
 	}
 
