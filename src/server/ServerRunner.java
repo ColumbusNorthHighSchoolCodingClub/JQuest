@@ -8,6 +8,7 @@ public class ServerRunner {
 			server.acceptConnections();
 		} catch (Exception e) {
 			System.out.println(e);
+			System.out.println("Uh oh!");
 		}
 	}
 
