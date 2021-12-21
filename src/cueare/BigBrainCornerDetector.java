@@ -84,8 +84,8 @@ public class BigBrainCornerDetector {
 	 */
 	public static void drawBoundsThread() {
 		feeder.toggleManualInput();
-		CanvasFrame c2 = new CanvasFrame("Rendered");
-		c2.setLayout(new FlowLayout());
+		//CanvasFrame c2 = new CanvasFrame("Rendered");
+	//	c2.setLayout(new FlowLayout());
 		
 		while (true) {
 			threshold = c.getThreshold();
