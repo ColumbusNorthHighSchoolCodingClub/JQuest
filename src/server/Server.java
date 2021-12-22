@@ -14,19 +14,25 @@ public class Server {
     private final String ip;
     private final int port;
     private final ServerSocket ss;
-    private Map<String,Map<String,String>> allProfiles = new HashMap<>();
-    
+    private Map<String, Map<String, String>> allProfiles = new HashMap<>();
+
     public Server(int port) throws IOException {
         this.ip = InetAddress.getLocalHost().toString();
         this.port = port;
         this.ss = new ServerSocket(port);
         System.out.println("Server has been started on port " + port);
+
         
-        //test server profiles
-        Map<String,String> profileA = new HashMap<>();
+        
+        // test server profiles
+        Map<String, String> profileA = new HashMap<>();
         profileA.put("Name", "JMONEYANDRISHI");
         allProfiles.put("1", profileA);
-        
+
+        Map<String, String> profileB = new HashMap<>();
+        profileB.put("Name", "SPOCK");
+        allProfiles.put("5", profileB);
+
     }
 
     public void acceptConnections() {
@@ -53,16 +59,12 @@ public class Server {
         timer.schedule(task, 0, 1);
 
     }
-    
-    
 
     public Map<String, Map<String, String>> getAllProfiles() {
-		return allProfiles;
-	}
+        return allProfiles;
+    }
 
-
-
-	public String getIp() {
+    public String getIp() {
         return ip;
     }
 

@@ -2,6 +2,7 @@ package server;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Map;
 
 import common.SocketContainer;
 import util.JsonManager;
@@ -45,7 +46,7 @@ public class ServerThread extends Thread {
 				} else if (input.startsWith("Authenticate:")) {
 					System.out.println(input);
 					String playerId = input.replace("Authenticate:", "");
-					var profile = outer.getAllProfiles().get(playerId);
+					Map<String,String> profile = outer.getAllProfiles().get(playerId);
 					socketContainer.write(JsonManager.getJSONString(profile));
 
 				} else if (input.startsWith("UPDATE:")) {
