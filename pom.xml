@@ -13,6 +13,14 @@
           <release>16</release>
         </configuration>
       </plugin>
+       <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.8</version>
+            <configuration>
+                <mainClass>JFXMedia3</mainClass>
+            </configuration>
+        </plugin>
     </plugins>
   </build>
     <dependencies>
@@ -44,6 +52,16 @@
     <artifactId>json</artifactId>
     <version>20210307</version>
 </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>17.0.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>17.0.0.1</version>
+        </dependency>
 
     </dependencies>
 </project>
