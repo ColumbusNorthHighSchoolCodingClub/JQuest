@@ -40,7 +40,7 @@ public class JPortalRunner extends JFrame {
 
 		// Creating a new frame to store text field and button
 		f = new JFrame("JPortal");
-
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// three images displayed to screen
 		upImg = new JLabel(new ImageIcon(timelineImages.get(upInd)));
 		midImg = new JLabel(new ImageIcon(timelineImages.get(midInd)));

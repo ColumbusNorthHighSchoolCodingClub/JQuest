@@ -1,4 +1,4 @@
-package game;
+package game.stations;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,6 +9,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import game.TemplateStation;
 
 public class StationOne extends TemplateStation {
 
