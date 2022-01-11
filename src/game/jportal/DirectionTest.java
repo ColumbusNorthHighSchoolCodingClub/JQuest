@@ -1,4 +1,4 @@
-package jportal;
+package game.jportal;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,10 +13,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JPanel;
 
-public abstract class directionTest extends JPanel implements KeyListener, MouseListener, MouseMotionListener 
+public abstract class DirectionTest extends JPanel implements KeyListener, MouseListener, MouseMotionListener 
 {
     
-    public directionTest()
+    public DirectionTest()
     {
         this.setFocusable(true);
         this.addKeyListener(this);

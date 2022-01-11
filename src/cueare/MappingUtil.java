@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
-
 public class MappingUtil {
 
 	public String nums = "0123456789";
@@ -170,8 +169,8 @@ public class MappingUtil {
 		// System.out.println(newSum + " " + correctSum);
 
 		if (correctSum != newSum) {
-			
-			throw new Exception("Checksum invalid");	
+
+			throw new Exception("Checksum invalid");
 		}
 
 		String output = "";
@@ -252,10 +251,9 @@ public class MappingUtil {
 		return ret;
 	}
 
-	
 	Image encoded;
 	BufferedLoader b = new BufferedLoader();
-	
+
 	public void encodeAndDisplay() {
 
 		JFrame frame = new JFrame();
@@ -263,8 +261,7 @@ public class MappingUtil {
 
 		frame.setPreferredSize(new Dimension(650, 500));
 		frame.setLocation(722, 240);
-		
-		
+
 		BufferedImage img = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB);
 
 		JPanel p = new JPanel();
@@ -272,7 +269,7 @@ public class MappingUtil {
 
 		frame.add(p);
 		JButton openSite = new JButton("Encode Link");
-		
+
 		JButton print = new JButton("Print");
 
 		JTextField linkInput = new JTextField();
@@ -285,12 +282,7 @@ public class MappingUtil {
 			public void mouseClicked(MouseEvent e) {
 				String toEncode = linkInput.getText();
 
-				if (toEncode.contains(".")) {
-					toEncode = BitlyManager.getURL(toEncode);
-					// System.out.println(toEncode);
-				}
-
-			 encoded = specToImage(encode(toEncode), false);
+				encoded = specToImage(encode(toEncode), false);
 
 				encoded = encoded.getScaledInstance(400, 400, BufferedImage.SCALE_SMOOTH);
 
@@ -307,7 +299,7 @@ public class MappingUtil {
 		});
 
 		print.addActionListener(e -> b.printImage(BufferedLoader.toBufferedImage(encoded)));
-		
+
 		frame.pack();
 		frame.setVisible(true);
 
@@ -365,7 +357,7 @@ public class MappingUtil {
 			// e.printStackTrace();
 			System.err.print(e);
 			msg = "Invalid checksum";
-			dec+=msg;
+			dec += msg;
 		}
 
 		JLabel lab = new JLabel(dec);
@@ -404,6 +396,5 @@ public class MappingUtil {
 
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
-
 
 }
