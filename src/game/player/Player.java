@@ -5,8 +5,9 @@ public class Player //The Class that stores and manipulates data relative to the
 	private String userName;
 	private String userID;
 	private ArrayList<Item> inv; //Arraylist of all items stored in the player
-	private int health; //Health value
-	private final int maxHealth = 20; //Maximum possible health value
+	private int health;
+	private final int maxHealth; //Maximum possible health value
+	private final int baseDamage; //Starting damage that is added upon
 	private int jMoney; //Currency value
 	private String charClass;
 	private String currentStation; //Current station on map
@@ -16,10 +17,29 @@ public class Player //The Class that stores and manipulates data relative to the
 	private ArrayList<Integer> availableStations; //Arraylist of all stations available to go to
 	private Map map; //Map object relative to player
 	
-	public Player(String name, String id, String dest, String station)
+	public Player(String name, String id, String dest, String station, String characterClass)
 	{
 		userName = name;
 		userID = id;
+		charClass = characterClass;
+		switch(charClass)
+		{
+			case "Thief":
+				maxHealth = 10;
+				baseDamage = 1;
+				break;
+			case "Mage":
+				maxHealth = 15;
+				baseDamage = 2;
+				break;
+			case "Brute":
+				maxHealth = 20;
+				baseDamage = 3;
+				break;
+			default:
+				maxHealth = 10;
+				baseDamage = 1;
+		}
 		health = maxHealth;
 		jMoney = 0;
 		currentStation = station;
@@ -120,8 +140,18 @@ public class Player //The Class that stores and manipulates data relative to the
 		}
 	}
 	
+	//Makes the map into a new object based on given station and objective data
 	public void updateMap()
 	{
 		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
+	}
+	
+	//Returns damage based on a given weapon's damage and the player's base damage
+	public int getDamage(int weaponDamage)
+	{
+		int damage;
+		damage = baseDamage * weaponDamage;
+		damage = (int) Math.floor(Math.random()*(damage+baseDamage+1));
+		return damage;
 	}
 }
