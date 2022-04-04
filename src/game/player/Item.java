@@ -1,3 +1,5 @@
+package game.player;
+
 import java.awt.image.BufferedImage;
 
 public class Item

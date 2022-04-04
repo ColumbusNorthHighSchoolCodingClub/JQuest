@@ -1,3 +1,6 @@
+
+package game.player;
+
 import java.util.ArrayList;
 
 public class Player //The Class that stores and manipulates data relative to the players in the game.
