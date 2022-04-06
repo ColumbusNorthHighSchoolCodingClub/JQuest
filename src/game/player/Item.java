@@ -17,6 +17,12 @@ public class Item
 		value = val;
 		image = pic.getSubimage(0,0,pic.getWidth(),pic.getHeight());
 	}
+	//Returns a new Item object with the same variables as this
+	public Item clone()
+	{
+		Item item = new Item(name,utilityType,actionValue,value,image);
+		return item;
+	}
 	public String getName() {return name;}
 	public String getUtility() {return utilityType;}
 	public int getActionValue() {return actionValue;}

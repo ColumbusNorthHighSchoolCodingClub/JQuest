@@ -1,18 +1,18 @@
-
 package game.player;
 
 import java.util.ArrayList;
 
 public class Player //The Class that stores and manipulates data relative to the players in the game.
 {
-	private String userName;
-	private String userID;
-	private ArrayList<Item> inv; //Arraylist of all items stored in the player
-	private int health;
+	private String userName; //Name of player
+	private String userID; //Unique string login for the player
+	private Inventory inv; //Arraylist of all items stored in the player
+	private int health; //Hitpoints
 	private final int maxHealth; //Maximum possible health value
 	private final int baseDamage; //Starting damage that is added upon
 	private int jMoney; //Currency value
-	private String charClass;
+	private Item weapon; //Currently held weapon Item
+	private String charClass; //Class of player
 	private String currentStation; //Current station on map
 	private String currentTimeline; //Current location in timelines
 	private String currentDestination; //Station of current(selected?) objective/quest
@@ -50,25 +50,22 @@ public class Player //The Class that stores and manipulates data relative to the
 		currentDestination = dest;
 		currentObjectives = new ArrayList<String>();
 		availableStations = new ArrayList<Integer>();
-		inv = new ArrayList<Item>();
-		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
+		inv = new Inventory();
+//		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
 	}
 
 	public String getUserName() {return userName;} //Returns player's userName
 	public String getID() {return userID;} //Returns player's userID
-	public ArrayList<Item> getInventory() {return inv;} //Returns arraylist of Strings in player's inventory
-	public void addItem(Item item)
+	public Inventory getInventory() {return inv;} //Returns arraylist of Strings in player's inventory
+	public void addItem(Item item) //Adds item to the inventory
 	{
-		inv.add(item);
+		inv.addItem(item);
 		updateMap();
 	}
-	public void removeItem(Item item)
+	public void removeItem(Item item) //Removes item from the inventory
 	{
-		if(inv.contains(item))
-		{
-			inv.remove(inv.indexOf(item));
-			updateMap();
-		}
+		inv.removeItem(item);
+		updateMap();
 	}
 	public int getHealth() {return health;} //Returns player's health value
 	public void addHealth(int heal) //Easy way of modifying health
@@ -85,6 +82,7 @@ public class Player //The Class that stores and manipulates data relative to the
 	public int getMoney() {return jMoney;} //Returns player's currency value
 	public void addMoney(int mon) {jMoney += mon;} //Easy way of modifying currency
 	public void removeMoney(int mon) {jMoney -= mon;} //Easy way of modifying currency
+	public Item getWeapon() {return weapon;} //Returns player's weapon
 	public String getCharClass() {return charClass;} //Returns player's class
 	public String getStation() {return currentStation;} //Returns player's location within the map
 	public String getTimeline() {return currentTimeline;} //Returns player's timeline
@@ -146,14 +144,41 @@ public class Player //The Class that stores and manipulates data relative to the
 	//Makes the map into a new object based on given station and objective data
 	public void updateMap()
 	{
-		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
+//		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
 	}
 	
-	//Returns damage based on a given weapon's damage and the player's base damage
-	public int getDamage(int weaponDamage)
+	//If the given item is a weapon, sets the current weapon to the given weapon, and adds any equipped weapons to the inventory.
+	public void equipItem(Item item)
+	{
+		if(item.getUtility().matches("Weapon"))
+		{
+			if(weapon != null)
+			{
+				addItem(weapon);
+			}
+			weapon = item.clone();
+			removeItem(weapon);
+		}
+	}
+	
+	//If the given item is a weapon, sets the current weapon to the given weapon, and adds any equipped weapons to the inventory.
+	public void unequipItem()
+	{
+		if(weapon != null)
+		{
+			addItem(weapon);
+			weapon = null;
+		}
+	}
+	
+	//Returns damage based on and the player's base damage and weapon's damage
+	public int getDamage()
 	{
 		int damage;
-		damage = baseDamage * weaponDamage;
+		if(weapon == null)
+			damage = baseDamage;
+		else
+			damage = baseDamage * weapon.getActionValue();
 		damage = (int) Math.floor(Math.random()*(damage+baseDamage+1));
 		return damage;
 	}
