@@ -27,10 +27,12 @@ public class Server {
         // test server profiles
         Map<String, String> profileA = new HashMap<>();
         profileA.put("Name", "JMONEYANDRISHI");
+        profileA.put("JMoney", "20");
         allProfiles.put("1", profileA);
 
         Map<String, String> profileB = new HashMap<>();
         profileB.put("Name", "SPOCK");
+        profileB.put("JMoney", "9999");
         allProfiles.put("5", profileB);
 
     }

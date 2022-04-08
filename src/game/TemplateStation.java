@@ -24,14 +24,19 @@ public class TemplateStation {
 
     public void authenticatePlayer(String id) {
         String profileData = c.sendAndAwaitReply("Authenticate:" + id);
-        currentUserProfile = JsonManager.getMap(profileData);
-        currentUserId = id;
+        this.currentUserProfile = JsonManager.getMap(profileData);
+        this.currentUserId = id;
         System.out.println(currentUserProfile);
+    }
+    
+    public void addToProfile(String key, String value) {
+        currentUserProfile.put(key, value);
+        
     }
 
     public void updateUserProfileOnServer() {
         String exportData = JsonManager.getJSONString(currentUserProfile);
-        c.sendAndAwaitReply("UPDATE:" + currentUserId + "%" + exportData);
+        c.sendData("UPDATE:" + currentUserId + "%" + exportData);
     }
 
 }

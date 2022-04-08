@@ -38,15 +38,28 @@ public class StationOne extends TemplateStation {
         profileDisplay.setWrapStyleWord(true);
         profileDisplay.setLineWrap(true);
         profileDisplay.setEditable(false);
-        profileDisplay.setPreferredSize(new Dimension(200, 200));
+        profileDisplay.setPreferredSize(new Dimension(250, 200));
 
         frame.add(profileDisplay);
 
         authenticateButton.addActionListener((e) -> {
             authenticatePlayer(inputField.getText());
-            profileDisplay.setText(this.currentUserProfile.toString().equals("{}") ? "Invalid ID" : this.currentUserProfile.toString());
+            profileDisplay.setText(this.currentUserProfile.toString().equals("{}") ? "Invalid ID"
+                    : this.currentUserProfile.toString());
         });
         frame.add(authenticateButton);
+
+        JTextField addProfileInput = new JTextField();
+        addProfileInput.setPreferredSize(new Dimension(150, 30));
+        frame.add(addProfileInput);
+
+        JButton updateProfileButton = new JButton("Update Profile");
+        updateProfileButton.addActionListener(e -> {
+            String[] input = addProfileInput.getText().split(",");
+            addToProfile(input[0], input[1]);
+            updateUserProfileOnServer();
+        });
+        frame.add(updateProfileButton);
 
         frame.pack();
         frame.revalidate();

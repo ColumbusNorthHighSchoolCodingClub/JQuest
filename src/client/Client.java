@@ -74,26 +74,31 @@ public class Client {
 
 		return false;
 	}
+	
+    private String lastReceivedData = null;
 
-	public String sendAndAwaitReply(String data) {
+    public String sendAndAwaitReply(String data) {
 
-		socketContainer.write(data);
+        lastReceivedData = null;
+        socketContainer.write(data);
 
-		var initialTime = System.currentTimeMillis();
-		var stopTime = initialTime + 1000;
+        long initialTime = System.currentTimeMillis();
+        long stopTime = initialTime + 1000;
 
-		var received = socketContainer.read();
+        Thread awaitReplyThread = new Thread(() -> lastReceivedData = socketContainer.read());
+        awaitReplyThread.start();
 
-		while (received == null) {
-			received = socketContainer.read();
-
-			if (System.currentTimeMillis() > stopTime) {
-				return "Error: Data retrieval unsuccessful";
-			}
-		}
-
-		return received;
-
+        while (!awaitReplyThread.isInterrupted()) {
+            if (System.currentTimeMillis() > stopTime) {
+                awaitReplyThread.interrupt();
+            }
+        }
+        
+        return lastReceivedData;
+	}
+	
+	public void sendData(String data) {
+	    socketContainer.write(data);
 	}
 
 	public String sendAsync(String data) {
