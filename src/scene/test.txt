@@ -1,0 +1,30 @@
+new
+src/images/80s.jpg
+where next?
+CNHS
+Medieval
+WildWest
+2
+3
+4
+new
+src/images/CNHS.jpg
+end?
+yes
+no
+0
+1
+new
+src/images/medieval.jpg
+end?
+yes
+no
+0
+1
+new
+src/images/Wild West.jpg
+end?
+yes
+no
+0
+1

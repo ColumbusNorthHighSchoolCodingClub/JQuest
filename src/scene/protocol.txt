@@ -1,0 +1,4 @@
+The first subscene described will be the first to show
+describe a subscene by putting the filepath of the image to show, then on another line the question to ask, then responses on their own line after that
+then, put the numbers of which subscenes in the file to display after that
+then, put the word break between subscenes
