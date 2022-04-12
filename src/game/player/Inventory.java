@@ -28,6 +28,17 @@ public class Inventory
 			}
 		}
 	}
+	public void removeItem(String name) //Removes Item with given namefrom the ArrayList
+	{
+		for(int i=0;i<items.size();i++)
+		{
+			if(items.get(i).getName().equals(name))
+			{
+				items.remove(i);
+				break;
+			}
+		}
+	}
 	public boolean hasItem(Item item) //Checks if the name of the given Item is the name of an Item in the ArrayList
 	{
 		for(int i=0;i<items.size();i++)
