@@ -97,62 +97,74 @@ public class Player //The Class that stores and manipulates data relative to the
 	
 	public void giveCommand(String command)
 	{
-		String check = "addHealth";
-		if(command.contains(check))
+		while(command.length() > 0)
 		{
-			int startPos = command.indexOf(check)+check.length()+1;
-			int endPos= command.indexOf(" ",startPos);
-			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
-			addHealth(actionValue);
-		}
-		check = "removeHealth";
-		if(command.contains(check))
-		{
-			int startPos = command.indexOf(check)+check.length()+1;
-			int endPos= command.indexOf(" ",startPos);
-			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
-			removeHealth(actionValue);
-		}
-		check = "resetHealth";
-		if(command.contains(check))
-		{
-			resetHealth();
-		}
-		check = "getHealth";
-		if(command.contains(check))
-		{
-			String output = ""+getHealth();
-			outputCommandResponse(output);
-		}
-		check = "addMoney";
-		if(command.contains(check))
-		{
-			int startPos = command.indexOf(check)+check.length()+1;
-			int endPos= command.indexOf(" ",startPos);
-			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
-			addMoney(actionValue);
-		}
-		check = "removeMoney";
-		if(command.contains(check))
-		{
-			int startPos = command.indexOf(check)+check.length()+1;
-			int endPos= command.indexOf(" ",startPos);
-			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
-			removeMoney(actionValue);
-		}
-		check = "getMoney";
-		if(command.contains(check))
-		{
-			String output = ""+getMoney();
-			outputCommandResponse(output);
-		}
-		check = "removeItem";
-		if(command.contains(check))
-		{
-			int startPos = command.indexOf(check)+check.length()+1;
-			int endPos= command.indexOf(" ",startPos);
-			String itemName = command.substring(startPos,endPos);
-			removeItem(itemName);
+			command = command.trim();
+			int endOfCheck = command.indexOf(" ");
+			if(endOfCheck == -1) endOfCheck = command.length();
+			String check = command.substring(0,endOfCheck);
+			if(check.equals("addHealth"))
+			{
+				int startPos = command.indexOf(check)+check.length()+1;
+				int endPos = command.indexOf(" ",startPos);
+				if(endPos == -1) endPos = command.length();
+				int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+				command = command.substring(endPos+1,command.length());
+				addHealth(actionValue);
+			}
+			else if(check.equals("removeHealth"))
+			{
+				int startPos = command.indexOf(check)+check.length()+1;
+				int endPos = command.indexOf(" ",startPos);
+				if(endPos == -1) endPos = command.length();
+				int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+				command = command.substring(endPos+1,command.length());
+				removeHealth(actionValue);
+			}
+			else if(check.equals("resetHealth"))
+			{
+				command = command.substring(endOfCheck,command.length());
+				resetHealth();
+			}
+			else if(check.equals("getHealth"))
+			{
+				command = command.substring(endOfCheck,command.length());
+				String output = ""+getHealth();
+				outputCommandResponse(output);
+			}
+			else if(check.equals("addMoney"))
+			{
+				int startPos = command.indexOf(check)+check.length()+1;
+				int endPos = command.indexOf(" ",startPos);
+				if(endPos == -1) endPos = command.length();
+				int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+				command = command.substring(endPos+1,command.length());
+				addMoney(actionValue);
+			}
+			else if(check.equals("removeMoney"))
+			{
+				int startPos = command.indexOf(check)+check.length()+1;
+				int endPos = command.indexOf(" ",startPos);
+				if(endPos == -1) endPos = command.length();
+				int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+				command = command.substring(endPos+1,command.length());
+				removeMoney(actionValue);
+			}
+			else if(check.equals("getMoney"))
+			{
+				command = command.substring(endOfCheck,command.length());
+				String output = ""+getMoney();
+				outputCommandResponse(output);
+			}
+			else if(check.equals("removeItem"))
+			{
+				int startPos = command.indexOf(check)+check.length()+1;
+				int endPos = command.indexOf(" ",startPos);
+				if(endPos == -1) endPos = command.length();
+				String itemName = command.substring(startPos,endPos);
+				command = command.substring(endPos+1,command.length());
+				removeItem(itemName);
+			}
 		}
 	}
 	
