@@ -67,6 +67,11 @@ public class Player //The Class that stores and manipulates data relative to the
 		inv.removeItem(item);
 		updateMap();
 	}
+	public void removeItem(String name) //Removes item from the inventory
+	{
+		inv.removeItem(name);
+		updateMap();
+	}
 	public int getHealth() {return health;} //Returns player's health value
 	public void addHealth(int heal) //Easy way of modifying health
 	{
@@ -90,6 +95,72 @@ public class Player //The Class that stores and manipulates data relative to the
 	public ArrayList<Integer> getAvailableStations() {return availableStations;} //Returns arraylist of available stations to go to
 	public Map getMap() {return map;} //Returns a map relative to this player
 	
+	public void giveCommand(String command)
+	{
+		String check = "addHealth";
+		if(command.contains(check))
+		{
+			int startPos = command.indexOf(check)+check.length()+1;
+			int endPos= command.indexOf(" ",startPos);
+			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+			addHealth(actionValue);
+		}
+		check = "removeHealth";
+		if(command.contains(check))
+		{
+			int startPos = command.indexOf(check)+check.length()+1;
+			int endPos= command.indexOf(" ",startPos);
+			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+			removeHealth(actionValue);
+		}
+		check = "resetHealth";
+		if(command.contains(check))
+		{
+			resetHealth();
+		}
+		check = "getHealth";
+		if(command.contains(check))
+		{
+			String output = ""+getHealth();
+			outputCommandResponse(output);
+		}
+		check = "addMoney";
+		if(command.contains(check))
+		{
+			int startPos = command.indexOf(check)+check.length()+1;
+			int endPos= command.indexOf(" ",startPos);
+			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+			addMoney(actionValue);
+		}
+		check = "removeMoney";
+		if(command.contains(check))
+		{
+			int startPos = command.indexOf(check)+check.length()+1;
+			int endPos= command.indexOf(" ",startPos);
+			int actionValue = Integer.valueOf(command.substring(startPos,endPos));
+			removeMoney(actionValue);
+		}
+		check = "getMoney";
+		if(command.contains(check))
+		{
+			String output = ""+getMoney();
+			outputCommandResponse(output);
+		}
+		check = "removeItem";
+		if(command.contains(check))
+		{
+			int startPos = command.indexOf(check)+check.length()+1;
+			int endPos= command.indexOf(" ",startPos);
+			String itemName = command.substring(startPos,endPos);
+			removeItem(itemName);
+		}
+	}
+	
+	private void outputCommandResponse(String out)
+	{
+		System.out.println(out);
+	}
+
 	public void setCharClass(String chaCla)
 	{
 		if(charClass.equals(null))
