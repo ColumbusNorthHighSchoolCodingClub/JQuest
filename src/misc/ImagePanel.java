@@ -55,25 +55,27 @@ public class ImagePanel {
      * @param imageHeight - height of image
      * @param rotation - rotation of image
      * @param imageX - X location
-     * @param imageY - Y location
+     * @param imageY - Y location+
      */
     public Scene image;
-    public ImagePanel(/*JFXPanel panel,*/ String filepath1, String filepath2, int imageWidth, int imageHeight, int rotation, int imageX,
+    public ImagePanel( String filepath1, String filepath2, int imageWidth, int imageHeight, int rotation, int imageX,
                        int imageY ) throws FileNotFoundException {
 //        panel.setLayout(null);
-        Player me = new Player("demo", "1234", "dest", "station");
-        Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), me.getStation(), me.getDestination(), me.getTimeline());
-        Group root = new Group();
-        Scene scene = new Scene(root);
+        Player me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
+        Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), 
+                me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding tot he plaeyr class
+        Group root = new Group(); // creates a group of pixels 
+        Scene scene = new Scene(root);//declasres a scene ont he group of pixels
         
-        ImageView view = new ImageView();
-        view.setImage(map.plantFFStations(getImage(filepath1), me.getAvailableFFStations()));
+        ImageView view = new ImageView(); // an image you can se on a scene
+        view.setImage(map.plantFFStations(getImage(filepath1), me.getAvailableFFStations())); // call image from the map for the FFstations
         view.setFitHeight(imageWidth);
         view.setFitWidth(imageHeight);
-        view.setX(imageX);
-        view.setY(imageY);
+        view.setX(imageX); // coordiantes of images
+        view.setY(imageY); // coordiantes of images
         view.setRotate(rotation);
 ////////////////////////////////////////////////////////////////////////////////
+        /*repeat this porcess for both maps*/
         ImageView view2 = new ImageView();
         view2.setImage(map.plantSFStations(getImage(filepath2), me.getAvailableSFStations()));
         view2.setFitHeight(imageWidth);
@@ -82,9 +84,9 @@ public class ImagePanel {
         view2.setY(imageY);
         view2.setRotate(rotation);
 
-        ((Group) scene.getRoot()).getChildren().add(view);
+        ((Group) scene.getRoot()).getChildren().add(view); // add the scenes to the group of pixels
         ((Group) scene.getRoot()).getChildren().add(view2);
-        image = scene;
+        image = scene; // declare the scene as a single image
 //        panel.setScene(scene);
     }
 

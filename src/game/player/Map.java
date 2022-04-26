@@ -20,13 +20,14 @@ public class Map
 	private final int imgWidth = 1200;
 	private final int imgHeight = 800;
 	private Image ffbackground;
-        private Image sfbackground;//Uses image of school layout?
+        private Image sfbackground;//Uses image of school layout
         
         public ArrayList<String> availableStations;
 	public Map(ArrayList<Integer> availableFFStations,ArrayList<Integer> availableSFStations,String currentStation,String currentDestination,String currentTimeline) throws FileNotFoundException
 	{
 		ffbackground = new Image(new FileInputStream("src\\images\\FirstFloor_Reference.png"));
 		sfbackground = new Image(new FileInputStream("src\\images\\SecondFloor_Reference.png"));
+                availableStations = new ArrayList<String>();
 	}
         
         public Image plantFFStations(Image xx, ArrayList<Integer> list)
@@ -41,8 +42,8 @@ public class Map
         
         public Image plantSFStations(Image xx, ArrayList<Integer> list)
         {
-            WritableImage result = new WritableImage(sfbackground.getPixelReader(),(int)sfbackground.getWidth(),(int) sfbackground.getHeight());
-            PixelWriter editor = result.getPixelWriter();
+            WritableImage result = new WritableImage(sfbackground.getPixelReader(),(int)sfbackground.getWidth(),(int) sfbackground.getHeight());  //Creates a copy image that can be edited
+            PixelWriter editor = result.getPixelWriter(); // creates an object that can edit the image 
             for(int x=30; x<40;x++)
                 for(int y=30; y<40;y++)
                     editor.setColor(x, y, Color.CORAL);
@@ -52,7 +53,7 @@ public class Map
         public void TransferFFStations(ArrayList<Integer> availableFFStations)
         {
             
-            for(Integer i : availableFFStations)
+            for(Integer i : availableFFStations) // loops through the first floor stations to create a list of the locautons of all the stations
                 switch (i)
                 {
                     case 1:
@@ -85,7 +86,7 @@ public class Map
         public void TransferSFStations(ArrayList<Integer> availableSFStations)
         {
             
-            for(Integer i : availableSFStations)
+            for(Integer i : availableSFStations)// loops through the second floor stations to create a list of the locautons of all the stations
                 switch (i)
                 {
                     case 1:

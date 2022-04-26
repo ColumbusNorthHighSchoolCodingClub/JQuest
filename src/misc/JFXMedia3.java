@@ -2,10 +2,14 @@ package misc;
 
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * JFXMedia JFrame v3.1
@@ -18,7 +22,7 @@ public class JFXMedia3 extends JFrame implements ActionListener {
     JButton button = new JButton("Click to change");
 
     private static boolean toggle = true;
-    public final JFXPanel fxPanel = new JFXPanel();
+    public JFXPanel fxPanel = new JFXPanel();
 
 
     /**
@@ -30,7 +34,7 @@ public class JFXMedia3 extends JFrame implements ActionListener {
         setResizable(true);
         setLayout(null);
 
-        fxPanel.setBounds(0,0,800,600);
+        fxPanel.setBounds(0,-100,800,600);
         add(fxPanel);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,8 +48,15 @@ public class JFXMedia3 extends JFrame implements ActionListener {
             @Override
             public void run() {
                 //filepath should be filepath of video
-                new VideoPanel2(fxPanel, "src/misc/option1.mp4",
-                        1000, 1000, 270, -100,0);
+                try {
+                            //filepath should be filepath of video
+                            Scene scene = new ImagePanel("src\\images\\FirstFloor_Reference.png","src\\images\\SecondFloor_Reference.png",
+                                    302, 384, 0, 0,100).image;  // <---- ImagePanel(first filepath, second file path, image width,
+                            fxPanel.setLayout(null);            //                    image height, rotation, x-coordinate, y-coordiante)
+                            fxPanel.setScene(scene);
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(JFXMedia3.class.getName()).log(Level.SEVERE, null, ex);
+                        }
             }
         });
     }
@@ -60,13 +71,27 @@ public class JFXMedia3 extends JFrame implements ActionListener {
                 @Override
                 public void run() {
                     if(toggle)
+                    {
                         //filepath should be filepath of video
-                        new VideoPanel2(fxPanel, "src/misc/option1.mp4",
-                                1000, 1000, 270, -100,0);
+                         Scene scene = new VideoPanel2("src/misc/option1.mp4",
+                                600, 302, 270, 0,100).VP2;
+                         fxPanel.setLayout(null);
+                         fxPanel.setScene(scene);
+                 
+                    
+                    }
                     else
-                        //filepath should be filepath of video
-                        new VideoPanel2(fxPanel, "src/misc/option2.mp4",
-                                1000, 1000, 270, -100, 0);
+                    {
+                        try {
+                            //filepath should be filepath of video
+                            Scene scene = new ImagePanel("src\\images\\FirstFloor_Reference.png","src\\images\\SecondFloor_Reference.png",
+                                    302, 384, 0, 0,100).image;  // <---- ImagePanel(first filepath, second file path, image width,
+                            fxPanel.setLayout(null);            //                    image height, rotation, x-coordinate, y-coordiante)
+                            fxPanel.setScene(scene);
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(JFXMedia3.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
                 }
             });
 

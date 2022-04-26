@@ -26,9 +26,10 @@ public class VideoPanel2 {
      * @param videoX - X location
      * @param videoY - Y location
      */
-    public VideoPanel2(JFXPanel panel, String filepath, int videoWidth, int videoHeight, int rotation, int videoX,
+    public Scene VP2;
+    public VideoPanel2( String filepath, int videoWidth, int videoHeight, int rotation, int videoX,
                        int videoY ) {
-        panel.setLayout(null);
+//        panel.setLayout(null);
         Group root = new Group();
         Scene scene = new Scene(root);
         MediaPlayer med = playMedia(filepath);
@@ -41,7 +42,8 @@ public class VideoPanel2 {
         view.setRotate(rotation);
 
         ((Group) scene.getRoot()).getChildren().add(view);
-        panel.setScene(scene);
+        VP2= scene;
+//        panel.setScene(VP2);
     }
 
     /**
