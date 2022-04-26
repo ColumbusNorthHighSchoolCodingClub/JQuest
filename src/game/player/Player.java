@@ -1,5 +1,6 @@
 package game.player;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Player //The Class that stores and manipulates data relative to the players in the game.
@@ -21,7 +22,7 @@ public class Player //The Class that stores and manipulates data relative to the
 	private ArrayList<Integer> availableSFStations; //Arraylist of all stations available to go to on second floor
 	private Map map; //Map object relative to player
 	
-	public Player(String name, String id, String dest, String station, String characterClass)
+	public Player(String name, String id, String dest, String station, String characterClass) throws FileNotFoundException
 	{
 		userName = name;
 		userID = id;
@@ -50,7 +51,8 @@ public class Player //The Class that stores and manipulates data relative to the
 		currentTimeline = "Modern";
 		currentDestination = dest;
 		currentObjectives = new ArrayList<String>();
-		availableStations = new ArrayList<Integer>();
+		availableFFStations = new ArrayList<Integer>();
+                availableSFStations = new ArrayList<Integer>();
 		inv = new Inventory();
 		map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
 	}
@@ -93,8 +95,9 @@ public class Player //The Class that stores and manipulates data relative to the
 	public String getStation() {return currentStation;} //Returns player's location within the map
 	public String getTimeline() {return currentTimeline;} //Returns player's timeline
 	public String getDestination() {return currentDestination;} //Returns player's destination within the map
-	public ArrayList<Integer> getAvailableStations() {return availableStations;} //Returns arraylist of available stations to go to
-	public Map getMap() {return map;} //Returns a map relative to this player
+	public ArrayList<Integer> getAvailableFFStations() {return availableFFStations;} //Returns arraylist of available stations to go to
+	public ArrayList<Integer> getAvailableSFStations() {return availableSFStations;}
+        public Map getMap() {return map;} //Returns a map relative to this player
 	
 	public void giveCommand(String command)
 	{
