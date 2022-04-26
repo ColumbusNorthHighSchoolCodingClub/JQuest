@@ -52,7 +52,7 @@ public class Player //The Class that stores and manipulates data relative to the
 		currentDestination = dest;
 		currentObjectives = new ArrayList<String>();
 		availableFFStations = new ArrayList<Integer>();
-                availableSFStations = new ArrayList<Integer>();
+        availableSFStations = new ArrayList<Integer>();
 		inv = new Inventory();
 		map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
 	}
@@ -97,7 +97,7 @@ public class Player //The Class that stores and manipulates data relative to the
 	public String getDestination() {return currentDestination;} //Returns player's destination within the map
 	public ArrayList<Integer> getAvailableFFStations() {return availableFFStations;} //Returns arraylist of available stations to go to
 	public ArrayList<Integer> getAvailableSFStations() {return availableSFStations;}
-        public Map getMap() {return map;} //Returns a map relative to this player
+    public Map getMap() {return map;} //Returns a map relative to this player
 	
 	public void giveCommand(String command)
 	{
@@ -231,7 +231,14 @@ public class Player //The Class that stores and manipulates data relative to the
 	//Makes the map into a new object based on given station and objective data
 	public void updateMap()
 	{
-//		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
+		try
+		{
+			map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	//If the given item is a weapon, sets the current weapon to the given weapon, and adds any equipped weapons to the inventory.
