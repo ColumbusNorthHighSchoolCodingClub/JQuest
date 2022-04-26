@@ -17,7 +17,8 @@ public class Player //The Class that stores and manipulates data relative to the
 	private String currentTimeline; //Current location in timelines
 	private String currentDestination; //Station of current(selected?) objective/quest
 	private ArrayList<String> currentObjectives; //Arraylist of all objectives/quests
-	private ArrayList<Integer> availableStations; //Arraylist of all stations available to go to
+	private ArrayList<Integer> availableFFStations; //Arraylist of all stations available to go to on first floor
+	private ArrayList<Integer> availableSFStations; //Arraylist of all stations available to go to on second floor
 	private Map map; //Map object relative to player
 	
 	public Player(String name, String id, String dest, String station, String characterClass)
@@ -51,7 +52,7 @@ public class Player //The Class that stores and manipulates data relative to the
 		currentObjectives = new ArrayList<String>();
 		availableStations = new ArrayList<Integer>();
 		inv = new Inventory();
-//		map = new Map(availableStations,currentStation,currentDestination,currentTimeline);
+		map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
 	}
 
 	public String getUserName() {return userName;} //Returns player's userName
