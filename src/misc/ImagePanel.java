@@ -21,6 +21,9 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import game.player.Map;
 import game.player.Player;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -58,6 +61,27 @@ public class ImagePanel {
      * @param imageY - Y location+
      */
     public Scene image;
+    public ImagePanel(ArrayList<ImageView> imageViews)
+    {
+        Player me;
+        try
+        {
+            me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
+            Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), 
+                    me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
+        }
+        catch (FileNotFoundException e)
+        {
+            Logger.getLogger(ImagePanel.class.getName()).log(Level.SEVERE, null, e);
+        }
+        Group root = new Group(); // creates a group of pixels 
+        Scene scene = new Scene(root);//declasres a scene ont he group of pixels
+        for(ImageView view : imageViews)
+        {
+            ((Group) scene.getRoot()).getChildren().add(view); // add the scenes to the group of pixels
+        }
+        image = scene;
+    }
     public ImagePanel( String filepath1, String filepath2, int imageWidth, int imageHeight, int rotation, int imageX,
                        int imageY ) throws FileNotFoundException {
 //        panel.setLayout(null);
@@ -101,5 +125,21 @@ public class ImagePanel {
       Image image = new Image(stream);
         return image;
     }
+
+    /**
+     * plays media
+     * @param filepath
+     * @return
+     */
+    public ImageView createtImageView(String filepath) {
+        InputStream stream=null;
+    try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
+      ImageView image = new ImageView();
+      image.setImage(getImage(filepath));
+        return image;
+    }
     
 }
+/*
+create an imageView arraylist that will be the input for the image panel then it returs a single scene back
+*/
