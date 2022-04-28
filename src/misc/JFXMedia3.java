@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class JFXMedia3 extends JFrame implements ActionListener {
     JButton button = new JButton("Click to change");
 
-    private static boolean toggle = true;
+    private static int sceneNum = 0;
     public JFXPanel fxPanel = new JFXPanel();
 
 
@@ -64,13 +64,13 @@ public class JFXMedia3 extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button) {
-            toggle = !toggle;
-            //System.out.println(toggle);
+            sceneNum = 1-sceneNum;
+            //System.out.println(sceneNum);
             //any changes to a JFXPanel from a swing element need to be run through a Runnable or Thread
             Platform.runLater(new Thread() {
                 @Override
                 public void run() {
-                    if(toggle)
+                    if(sceneNum == 0)
                     {
                         //filepath should be filepath of video
                          Scene scene = new VideoPanel2("src/misc/option1.mp4",
