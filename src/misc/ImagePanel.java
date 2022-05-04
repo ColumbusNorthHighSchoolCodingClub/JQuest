@@ -63,17 +63,6 @@ public class ImagePanel {
     public Scene image;
     public ImagePanel(ArrayList<ImageView> imageViews)
     {
-        Player me;
-        try
-        {
-            me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
-            Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), 
-                    me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
-        }
-        catch (FileNotFoundException e)
-        {
-            Logger.getLogger(ImagePanel.class.getName()).log(Level.SEVERE, null, e);
-        }
         Group root = new Group(); // creates a group of pixels 
         Scene scene = new Scene(root);//declasres a scene ont he group of pixels
         for(ImageView view : imageViews)
@@ -85,7 +74,7 @@ public class ImagePanel {
     public ImagePanel( String filepath1, String filepath2, int imageWidth, int imageHeight, int rotation, int imageX,
                        int imageY ) throws FileNotFoundException {
 //        panel.setLayout(null);
-        Player me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
+        Player me = new Player("demo", "1234", "dest", "station", "goblin"); // creates a player to reference the map
         Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), 
                 me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding tot he plaeyr class
         Group root = new Group(); // creates a group of pixels 
@@ -95,11 +84,11 @@ public class ImagePanel {
         view.setImage(map.plantFFStations(getImage(filepath1), me.getAvailableFFStations())); // call image from the map for the FFstations
         view.setFitHeight(imageWidth);
         view.setFitWidth(imageHeight);
-        view.setX(imageX); // coordiantes of images
-        view.setY(imageY); // coordiantes of images
+        view.setX(imageX); // coordinates of images
+        view.setY(imageY); // coordinates of images
         view.setRotate(rotation);
 ////////////////////////////////////////////////////////////////////////////////
-        /*repeat this porcess for both maps*/
+        /*repeat this process for both maps*/
         ImageView view2 = new ImageView();
         view2.setImage(map.plantSFStations(getImage(filepath2), me.getAvailableSFStations()));
         view2.setFitHeight(imageWidth);
@@ -119,7 +108,7 @@ public class ImagePanel {
      * @param filepath
      * @return
      */
-    public Image getImage(String filepath) {
+    public static Image getImage(String filepath) {
         InputStream stream=null;
     try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
       Image image = new Image(stream);
@@ -131,15 +120,22 @@ public class ImagePanel {
      * @param filepath
      * @return
      */
-    public ImageView createtImageView(String filepath) {
+    public static ImageView createImageView(String filepath,int imgWidth,int imgHeight,int x,int y,int rotation,Map map)
+    {
         InputStream stream=null;
-    try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
-      ImageView image = new ImageView();
-      image.setImage(getImage(filepath));
-        return image;
+        try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
+        ImageView imageView = new ImageView();
+        if(filepath.contains("FirstFloor"))
+        	imageView.setImage(map.plantFFStations(getImage(filepath), map.availableFFStations));
+        else if(filepath.contains("SecondFloor"))
+        	imageView.setImage(map.plantSFStations(getImage(filepath), map.availableSFStations));
+        else
+        	imageView.setImage(getImage(filepath));
+        imageView.setFitHeight(imgWidth);
+        imageView.setFitWidth(imgHeight);
+        imageView.setX(x); // coordinates of images
+        imageView.setY(y); // coordinates of images
+        imageView.setRotate(rotation);
+        return imageView;
     }
-    
 }
-/*
-create an imageView arraylist that will be the input for the image panel then it returs a single scene back
-*/

@@ -22,7 +22,7 @@ public class Player //The Class that stores and manipulates data relative to the
 	private ArrayList<Integer> availableSFStations; //Arraylist of all stations available to go to on second floor
 	private Map map; //Map object relative to player
 	
-	public Player(String name, String id, String dest, String station, String characterClass) throws FileNotFoundException
+	public Player(String name, String id, String dest, String station, String characterClass)
 	{
 		userName = name;
 		userID = id;
@@ -55,6 +55,12 @@ public class Player //The Class that stores and manipulates data relative to the
         availableSFStations = new ArrayList<Integer>();
 		inv = new Inventory();
 		map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
+	}
+
+	public Player() {
+		maxHealth = 10;
+		baseDamage = 1;
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getUserName() {return userName;} //Returns player's userName
@@ -231,14 +237,7 @@ public class Player //The Class that stores and manipulates data relative to the
 	//Makes the map into a new object based on given station and objective data
 	public void updateMap()
 	{
-		try
-		{
-			map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
+		map = new Map(availableFFStations,availableSFStations,currentStation,currentDestination,currentTimeline);
 	}
 	
 	//If the given item is a weapon, sets the current weapon to the given weapon, and adds any equipped weapons to the inventory.
