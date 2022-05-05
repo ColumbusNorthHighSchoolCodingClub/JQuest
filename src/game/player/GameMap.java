@@ -1,28 +1,23 @@
 package game.player;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.io.FileInputStream; 
-import java.io.FileNotFoundException; 
-import javafx.application.Application; 
-import javafx.scene.Group; 
-import javafx.scene.Scene; 
+
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;  
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import misc.ImagePanel;
 
 
-public class Map
+public class GameMap
 {
 	private Image ffbackground;
         private Image sfbackground;//Uses image of school layout
         
         public ArrayList<String> availableStations;
     
-	public Map(ArrayList<Integer> availableFFStations,ArrayList<Integer> availableSFStations,String currentStation,String currentDestination,String currentTimeline) throws FileNotFoundException
+	public GameMap(ArrayList<Integer> availableFFStations,ArrayList<Integer> availableSFStations,String currentStation,String currentDestination,String currentTimeline) throws FileNotFoundException
 	{
 		ffbackground = new Image(new FileInputStream("src\\images\\FirstFloor_Reference.png"));
 		sfbackground = new Image(new FileInputStream("src\\images\\SecondFloor_Reference.png"));

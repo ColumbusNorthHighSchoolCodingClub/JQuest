@@ -1,13 +1,10 @@
 package common;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.Socket;
 
 public class SocketContainer {
@@ -21,32 +18,29 @@ public class SocketContainer {
     public SocketContainer(Socket socket) throws IOException {
         this.socket = socket;
 
-        InputStream inStream = socket.getInputStream();
-        OutputStream outStream = socket.getOutputStream();
-
-        in = new DataInputStream(new BufferedInputStream(inStream));
-        out = new DataOutputStream(outStream);
+        in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+        out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
     }
 
     public Socket getSocket() {
         return socket;
     }
 
-    public String read() {
+    public String readUTF() {
         try {
             return in.readUTF();
         } catch (IOException e) {
-//            System.out.println("Unable to read from " + identifier);
+            e.printStackTrace();
         }
         return null;
     }
 
-    public void write(String str) {
+    public void writeUTF(String str) {
         try {
             out.writeUTF(str);
             out.flush();
         } catch (IOException e) {
-//            System.out.println("Unable to write to " + identifier);
+            e.printStackTrace();
         }
     }
 

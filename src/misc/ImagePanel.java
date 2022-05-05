@@ -19,7 +19,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
-import game.player.Map;
+import game.player.GameMap;
 import game.player.Player;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -67,7 +67,7 @@ public class ImagePanel {
         try
         {
             me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
-            Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), 
+            GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
                     me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
         }
         catch (FileNotFoundException e)
@@ -86,7 +86,7 @@ public class ImagePanel {
                        int imageY ) throws FileNotFoundException {
 //        panel.setLayout(null);
         Player me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
-        Map map =  new Map(me.getAvailableFFStations(), me.getAvailableSFStations(), 
+        GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
                 me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding tot he plaeyr class
         Group root = new Group(); // creates a group of pixels 
         Scene scene = new Scene(root);//declasres a scene ont he group of pixels

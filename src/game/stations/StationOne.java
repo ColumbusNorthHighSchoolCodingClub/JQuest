@@ -31,7 +31,7 @@ public class StationOne extends TemplateStation {
         inputField.setPreferredSize(new Dimension(100, 30));
         frame.add(inputField);
 
-        JButton authenticateButton = new JButton("Get player profile");
+        JButton authenticateButton = new JButton("Set current player");
 //        authenticateButton.setSize(new Dimension(70, 30));
 
         JTextArea profileDisplay = new JTextArea();
@@ -43,23 +43,21 @@ public class StationOne extends TemplateStation {
         frame.add(profileDisplay);
 
         authenticateButton.addActionListener((e) -> {
-            authenticatePlayer(inputField.getText());
-            profileDisplay.setText(this.currentUserProfile.toString().equals("{}") ? "Invalid ID"
-                    : this.currentUserProfile.toString());
+            this.currentUserId = inputField.getText();
+
         });
         frame.add(authenticateButton);
 
-        JTextField addProfileInput = new JTextField();
-        addProfileInput.setPreferredSize(new Dimension(150, 30));
-        frame.add(addProfileInput);
+        JTextField addMoneyInput = new JTextField();
+        addMoneyInput.setPreferredSize(new Dimension(150, 30));
+        frame.add(addMoneyInput);
 
-        JButton updateProfileButton = new JButton("Update Profile");
-        updateProfileButton.addActionListener(e -> {
-            String[] input = addProfileInput.getText().split(",");
-            addToProfile(input[0], input[1]);
-            updateUserProfileOnServer();
+        JButton addMoneyButton = new JButton("Add Monies");
+        addMoneyButton.addActionListener(e -> {
+            int moneyAmount = Integer.parseInt(addMoneyInput.getText());
+            this.sendData("UPDATE:" + currentUserId + ";" + "addMoney " + moneyAmount);
         });
-        frame.add(updateProfileButton);
+        frame.add(addMoneyButton);
 
         frame.pack();
         frame.revalidate();
@@ -68,12 +66,6 @@ public class StationOne extends TemplateStation {
 
     public static void main(String... args) throws IOException, InterruptedException {
         StationOne st = new StationOne("StationOne");
-
-//        Thread.sleep(3000);
-//
-//        Scanner s = new Scanner(System.in);
-//        System.out.println("Please enter your player ID");
-//        st.authenticatePlayer(s.next());
 
     }
 

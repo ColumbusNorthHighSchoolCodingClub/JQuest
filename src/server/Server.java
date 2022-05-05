@@ -9,12 +9,14 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import game.player.Player;
+
 public class Server {
 
     private final String ip;
     private final int port;
     private final ServerSocket ss;
-    private Map<String, Map<String, String>> allProfiles = new HashMap<>();
+    private Map<String, Player> allPlayers = new HashMap<String, Player>();
 
     public Server(int port) throws IOException {
         this.ip = InetAddress.getLocalHost().toString();
@@ -22,21 +24,14 @@ public class Server {
         this.ss = new ServerSocket(port);
         System.out.println("Server has been started on port " + port);
 
-        
-        
-        // test server profiles
-        Map<String, String> profileA = new HashMap<>();
-        profileA.put("Name", "JMONEYANDRISHI");
-        profileA.put("JMoney", "20");
-        allProfiles.put("1", profileA);
-
-        Map<String, String> profileB = new HashMap<>();
-        profileB.put("Name", "SPOCK");
-        profileB.put("JMoney", "9999");
-        allProfiles.put("5", profileB);
+        allPlayers.put("JMONEY", new Player("Jiaxuan", "JMONEY", "Dest1", "StationOne", "Thief"));
+        allPlayers.put("SPOCK", new Player("Spock", "SPOCK", "Dest2", "Station999", "Mage"));
 
     }
 
+    /**
+     * Continuously accepts client connections.
+     */
     public void acceptConnections() {
 
         System.out.println("Accepting connections...");
@@ -45,7 +40,6 @@ public class Server {
             @Override
             public void run() {
                 try {
-
                     Socket clientSocket = ss.accept();
                     String clientIp = clientSocket.getInetAddress().toString();
                     System.out.println("Client has connected at " + clientIp);
@@ -59,15 +53,23 @@ public class Server {
 
         Timer timer = new Timer();
         timer.schedule(task, 0, 1);
-
     }
 
-    public Map<String, Map<String, String>> getAllProfiles() {
-        return allProfiles;
-    }
-
+    /**
+     * Returns the server IP address.
+     * 
+     * @return server IP address
+     */
     public String getIp() {
         return ip;
+    }
+
+//    public Map<String, Player> getPlayerMap() {
+//        return allPlayers;
+//    }
+
+    public Player getPlayer(String id) {
+        return allPlayers.get(id);
     }
 
 }
