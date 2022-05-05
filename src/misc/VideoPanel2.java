@@ -34,6 +34,7 @@ public class VideoPanel2 {
         Scene scene = new Scene(root);
         MediaPlayer med = playMedia(filepath);
         med.setAutoPlay(true);
+        med.setCycleCount(1);
         MediaView view = new MediaView(med);
         view.setFitHeight(videoWidth);
         view.setFitWidth(videoHeight);

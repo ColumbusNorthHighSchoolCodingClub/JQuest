@@ -255,12 +255,8 @@ public class Player // The Class that stores and manipulates data relative to th
 
     // Makes the map into a new object based on given station and objective data
     public void updateMap() {
-        try {
-            map = new GameMap(availableFFStations, availableSFStations, currentStation, currentDestination,
-                    currentTimeline);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        map = new GameMap(availableFFStations, availableSFStations, currentStation, currentDestination,
+                currentTimeline);
     }
 
     // If the given item is a weapon, sets the current weapon to the given weapon,
