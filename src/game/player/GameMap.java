@@ -22,7 +22,8 @@ public class GameMap
     private Image sfbackground;//Uses image of school layout
     public ArrayList<Integer> availableFFStations;
     public ArrayList<Integer> availableSFStations;
-    public ArrayList<String> availableStations;
+    public ArrayList<String> FFStations;
+    public ArrayList<String> SFStations;
     
 	public GameMap(ArrayList<Integer> availableffStations,ArrayList<Integer> availablesfStations,String currentStation,String currentDestination,String currentTimeline)
 	{
@@ -36,7 +37,8 @@ public class GameMap
 		}
         availableFFStations = availableffStations;
         availableSFStations = availablesfStations;
-        availableStations = new ArrayList<String>();
+        FFStations = new ArrayList<String>();
+        SFStations = new ArrayList<String>();
 	}
     
     public GameMap() {
@@ -57,9 +59,15 @@ public class GameMap
     {
         WritableImage result = new WritableImage(sfbackground.getPixelReader(),(int)sfbackground.getWidth(),(int) sfbackground.getHeight());
         PixelWriter editor = result.getPixelWriter();
-        for(int x=30; x<40;x++)
-            for(int y=30; y<40;y++)
-                editor.setColor(x, y, Color.CORAL);
+        TransferFFStations(list);
+        for(String i : SFStations) //Loop through all the available stations
+        {
+            int Xcoordinate = Integer.valueOf(i.substring(0,i.indexOf(","))); //get x-coordinate
+            int Ycoordinate = Integer.valueOf(i.substring(i.indexOf(",")+1)); //get y-coordinate
+            for(int x=Xcoordinate; x<Xcoordinate+40; x++)
+                for(int y=Ycoordinate; y<Ycoordinate+40;y++)
+                  editor.setColor(x, y, Color.CORAL);
+        }
         return result;
     }
     
@@ -70,28 +78,29 @@ public class GameMap
             switch (i)
             {
                 case 1:
-                    availableStations.add("Location");
-                    continue;
+                    FFStations.add("20,20");
+                    System.out.println("got to station1");
+                    continue ;
                 case 2:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
                 case 3:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
                 case 4:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
                 case 5:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
                 case 6:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
                 case 7:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
                 case 8:
-                    availableStations.add("Location");
+                    FFStations.add("x,y");
                     continue;
             }
     }
@@ -103,28 +112,29 @@ public class GameMap
             switch (i)
             {
                 case 1:
-                    availableStations.add("Location");
+                    SFStations.add("20,20");
+                    System.out.println("got to station1");
                     continue;
                 case 2:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
                 case 3:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
                 case 4:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
                 case 5:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
                 case 6:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
                 case 7:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
                 case 8:
-                    availableStations.add("Location");
+                    SFStations.add("x,y");
                     continue;
             }
     }
