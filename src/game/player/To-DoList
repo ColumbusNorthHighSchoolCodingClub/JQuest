@@ -1,0 +1,6 @@
+Player/Map/Imaging To-Do List:
+-Comment all the methods so newcomers can quickly understand what does what.
+-Set up receivable player class or player class content to list station and inventory info.
+-Set up the GameMap within the menu.
+-Set up the Inventory within the menu.
+-Add a back button in the menu.

@@ -29,7 +29,9 @@ import java.util.logging.Logger;
  *
  * @author Carlos Fabian
  */
-public class ImagePanel {
+@SuppressWarnings("unused")
+public class ImagePanel
+{
     
     public ImagePanel()
     {
@@ -37,7 +39,7 @@ public class ImagePanel {
       //Creating the image view
       ImageView imageView = new ImageView();
       //Setting image to the image view
-      imageView.setImage(getImage("src\\images\\FirstFloor_Reference.png"));
+      imageView.setImage(getImage("src\\game\\player\\images\\FirstFloor_Reference.png"));
       //Setting the image view parameters
       imageView.setX(10);
       imageView.setY(10);
@@ -46,10 +48,8 @@ public class ImagePanel {
       //Setting the Scene object
       Group root = new Group(imageView);
       Scene scene = new Scene(root, 595, 370);
-//      stage.setTitle("Displaying Image");
-//      stage.setScene(scene);
-//      stage.show()
      }
+    
     /**
      *
      * @param panel - a JFX panel that needs to be populated
@@ -66,7 +66,7 @@ public class ImagePanel {
         Player me;
         try
         {
-            me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
+            me = new Player("demo", "1234", "dest", "station", "goblin"); // creates a player to reference the map
             GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
                     me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
         }
@@ -82,12 +82,21 @@ public class ImagePanel {
         }
         image = scene;
     }
-    public ImagePanel( String filepath1, String filepath2, int imageWidth, int imageHeight, int rotation, int imageX,
-                       int imageY ) throws FileNotFoundException {
+    
+    public ImagePanel(String filepath1,String filepath2,int imageWidth,int imageHeight,int rotation,int imageX,int imageY )
+    {
 //        panel.setLayout(null);
-        Player me = new Player("demo", "1234", "dest", "station", "golbin"); // creates a player to reference the map
+        Player me = null;
+		try
+		{
+			me = new Player("demo", "1234", "dest", "station", "goblin");
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		} // creates a player to reference the map
         GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
-                me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding tot he plaeyr class
+                me.getStation(), me.getDestination(), me.getTimeline()); // initializes the map corresponding tot he plaeyr class
         Group root = new Group(); // creates a group of pixels 
         Scene scene = new Scene(root);//declasres a scene ont he group of pixels
         
@@ -115,25 +124,22 @@ public class ImagePanel {
     }
 
     /**
-     * plays media
-     * @param filepath
-     * @return
+     * returns an image from a given filepath
      */
-    public static Image getImage(String filepath) {
+    public static Image getImage(String filepath)
+    {
         InputStream stream=null;
-    try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
-      Image image = new Image(stream);
+        try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
+        Image image = new Image(stream);
         return image;
     }
 
     /**
-     * plays media
-     * @param filepath
-     * @return
+     * returns an image view based off of given parameters
      */
     public static ImageView createImageView(String filepath,int imgWidth,int imgHeight,int x,int y,int rotation,GameMap map)
     {
-        InputStream stream=null;
+		InputStream stream = null;
         try{stream = new FileInputStream(filepath);} catch (FileNotFoundException e){}
         ImageView imageView = new ImageView();
         if(filepath.contains("FirstFloor"))

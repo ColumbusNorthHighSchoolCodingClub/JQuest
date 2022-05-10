@@ -1,6 +1,5 @@
 package misc;
 
-import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.media.Media;
@@ -27,9 +26,8 @@ public class VideoPanel2 {
      * @param videoY - Y location
      */
     public Scene VP2;
-    public VideoPanel2( String filepath, int videoWidth, int videoHeight, int rotation, int videoX,
-                       int videoY ) {
-//        panel.setLayout(null);
+    public VideoPanel2(String filepath,int videoWidth,int videoHeight,int rotation,int videoX,int videoY)
+    {
         Group root = new Group();
         Scene scene = new Scene(root);
         MediaPlayer med = playMedia(filepath);
@@ -43,8 +41,7 @@ public class VideoPanel2 {
         view.setRotate(rotation);
 
         ((Group) scene.getRoot()).getChildren().add(view);
-        VP2= scene;
-//        panel.setScene(VP2);
+        VP2 = scene;
     }
 
     /**
@@ -52,7 +49,8 @@ public class VideoPanel2 {
      * @param filepath
      * @return
      */
-    public MediaPlayer playMedia(String filepath ) {
+    public MediaPlayer playMedia(String filepath)
+    {
         File ff = new File(filepath);
         Media m = new Media(ff.toURI().toString());
         MediaPlayer med = new MediaPlayer(m);

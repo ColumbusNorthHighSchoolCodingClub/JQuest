@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import misc.ImagePanel;
 
 
+@SuppressWarnings("unused")
 public class GameMap
 {
 	private Image ffbackground;
@@ -27,8 +28,8 @@ public class GameMap
 	{
 		try
 		{
-			ffbackground = new Image(new FileInputStream("src\\images\\FirstFloor_Reference.png"));
-			sfbackground = new Image(new FileInputStream("src\\images\\SecondFloor_Reference.png"));
+			ffbackground = new Image(new FileInputStream("src\\game\\player\\images\\FirstFloor_Reference.png"));
+			sfbackground = new Image(new FileInputStream("src\\game\\player\\images\\SecondFloor_Reference.png"));
 		} catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
