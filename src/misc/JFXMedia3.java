@@ -45,7 +45,7 @@ public class JFXMedia3 extends JFrame implements ActionListener
      */
     public JFXMedia3()
     {
-        setSize(windowWidth,windowHeight);
+        setSize(windowHeight,windowWidth);
         setResizable(true);
         setLayout(null);
 
@@ -102,7 +102,13 @@ public class JFXMedia3 extends JFrame implements ActionListener
             {
                 e1.printStackTrace();
             } // creates a player to reference the map
-        	GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
+            ArrayList<Integer> fake = new ArrayList<Integer>();
+//            fake = me.getAvailableFFStations();
+                fake.add(1);
+                ArrayList<Integer> fake2 = new ArrayList<Integer>();
+//            fake2 = me.getAvailableSFStations();
+                fake2.add(1);
+        	GameMap map =  new GameMap(fake, fake2, 
                     me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
             //any changes to a JFXPanel from a swing element need to be run through a Runnable or Thread
             Platform.runLater(new Thread()
