@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Carlos Fabian
+ * @author Carlos Fabian, Nolan Sandlin
  */
 @SuppressWarnings("unused")
 public class ImagePanel
