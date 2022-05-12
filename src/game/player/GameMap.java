@@ -22,8 +22,8 @@ public class GameMap
     private Image sfbackground;//Uses image of school layout
     public ArrayList<Integer> availableFFStations;
     public ArrayList<Integer> availableSFStations;
-    public ArrayList<String> FFStations;
-    public ArrayList<String> SFStations;
+    public static ArrayList<String> FFStations;
+    public static ArrayList<String> SFStations;
     
 	public GameMap(ArrayList<Integer> availableffStations,ArrayList<Integer> availablesfStations,String currentStation,String currentDestination,String currentTimeline)
 	{
@@ -51,7 +51,7 @@ public class GameMap
         PixelWriter editor = result.getPixelWriter();
         for(int x=30; x<40;x++)
             for(int y=30; y<40;y++)
-                editor.setColor(x, y, Color.CORAL);
+                editor.setColor(x, y, Color.GREEN);
         return result;
     }
     
@@ -78,30 +78,30 @@ public class GameMap
             switch (i)
             {
                 case 1:
-                    FFStations.add("20,20");
+                    FFStations.add("200,200");
                     System.out.println("got to station1");
-                    continue ;
+                    break ;
                 case 2:
                     FFStations.add("x,y");
-                    continue;
+                    break;
                 case 3:
                     FFStations.add("x,y");
-                    continue;
+                    break;
                 case 4:
                     FFStations.add("x,y");
-                    continue;
+                    break;
                 case 5:
                     FFStations.add("x,y");
-                    continue;
+                    break;
                 case 6:
                     FFStations.add("x,y");
-                    continue;
+                    break;
                 case 7:
                     FFStations.add("x,y");
-                    continue;
+                    break;
                 case 8:
                     FFStations.add("x,y");
-                    continue;
+                    break;
             }
     }
     
@@ -112,30 +112,30 @@ public class GameMap
             switch (i)
             {
                 case 1:
-                    SFStations.add("20,20");
+                    SFStations.add("50,50");
                     System.out.println("got to station1");
-                    continue;
+                    break;
                 case 2:
                     SFStations.add("x,y");
-                    continue;
+                    break;
                 case 3:
                     SFStations.add("x,y");
-                    continue;
+                    break;
                 case 4:
                     SFStations.add("x,y");
-                    continue;
+                    break;
                 case 5:
                     SFStations.add("x,y");
-                    continue;
+                    break;
                 case 6:
                     SFStations.add("x,y");
-                    continue;
+                    break;
                 case 7:
                     SFStations.add("x,y");
-                    continue;
+                    break;
                 case 8:
                     SFStations.add("x,y");
-                    continue;
+                    break;
             }
     }
 }
