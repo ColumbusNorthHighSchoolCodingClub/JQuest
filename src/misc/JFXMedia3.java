@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javax.swing.*;
 
 import game.player.GameMap;
+import game.player.Inventory;
 import game.player.Player;
 
 import java.awt.event.ActionEvent;
@@ -101,15 +102,16 @@ public class JFXMedia3 extends JFrame implements ActionListener
             catch (FileNotFoundException e1)
             {
                 e1.printStackTrace();
-            } // creates a player to reference the map
+            } // creates a sample player to reference the map and inventory
             ArrayList<Integer> fake = new ArrayList<Integer>();
 //            fake = me.getAvailableFFStations();
-                fake.add(1);
-                ArrayList<Integer> fake2 = new ArrayList<Integer>();
+            fake.add(1);
+            ArrayList<Integer> fake2 = new ArrayList<Integer>();
 //            fake2 = me.getAvailableSFStations();
-                fake2.add(1);
+            fake2.add(1);
         	GameMap map =  new GameMap(fake, fake2, 
-                    me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
+                    me.getStation(), me.getDestination(), me.getTimeline()); // Initializes the map corresponding to the player class
+        	Inventory inv =  me.getInventory(); // Initializes the inventory corresponding to the player class
             //any changes to a JFXPanel from a swing element need to be run through a Runnable or Thread
             Platform.runLater(new Thread()
             {
@@ -134,12 +136,17 @@ public class JFXMedia3 extends JFrame implements ActionListener
                     	case 2:
                     		int mapWidth = 300;
                     		int mapHeight = 400;
-                    		int boxWidth = 200;
-                    		int boxHeight = 200;
+                    		int boxWidth = 100;
+                    		int boxHeight = 100;
+                    		int boxXOffset = 50;
+                    		int boxYOffset = 400;
                     		int mapScalar = screenHeight/(2*mapHeight);
-                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\FirstFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,screenWidth/2-mapWidth/4,mapHeight/4,0,map));
-//                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\SecondFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,mapWidth/4,mapHeight/4,0,map));
-                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\ItemSlot.png",boxWidth,boxHeight,200,400,0,map));
+                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\FirstFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,mapWidth/4,mapHeight/4,0,map));
+                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\SecondFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,screenWidth/2-mapWidth/4/4,mapHeight/4,0,map));
+                    		for(int i=0;i<inv.getMaxCount();i++)
+                    		{
+                    			imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\ItemSlot.png",boxWidth,boxHeight,boxXOffset+(i*boxWidth),boxYOffset,0,map));
+                    		}
                     		scene = new ImagePanel(imgViews).image;
                     		fxPanel.setLayout(null);
                             fxPanel.setScene(scene);
