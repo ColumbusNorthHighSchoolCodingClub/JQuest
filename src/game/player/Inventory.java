@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Inventory
 {
 	private ArrayList<Item> items;
+	private int maxCount = 7;
+	
 	public Inventory()
 	{
 		items = new ArrayList<>();
@@ -12,6 +14,10 @@ public class Inventory
 	public ArrayList<Item> getInventory() //Returns Item ArrayList
 	{
 		return items;
+	}
+	public int getMaxCount() //Returns maximum number of items allowed in inventory
+	{
+		return maxCount;
 	}
 	public void addItem(Item item) //Adds given Item to the ArrayList
 	{
