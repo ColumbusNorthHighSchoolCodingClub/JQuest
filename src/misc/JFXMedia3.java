@@ -137,8 +137,8 @@ public class JFXMedia3 extends JFrame implements ActionListener
                     		int boxWidth = 200;
                     		int boxHeight = 200;
                     		int mapScalar = screenHeight/(2*mapHeight);
-                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\FirstFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,1*mapScalar-1,100*mapScalar,0,map));
-                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\SecondFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,400*mapScalar,100*mapScalar,0,map));
+                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\FirstFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,screenWidth/2-mapWidth/4,mapHeight/4,0,map));
+//                    		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\SecondFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,mapWidth/4,mapHeight/4,0,map));
                     		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\ItemSlot.png",boxWidth,boxHeight,200,400,0,map));
                     		scene = new ImagePanel(imgViews).image;
                     		fxPanel.setLayout(null);
