@@ -1,10 +1,8 @@
 package game.player;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Player // The Class that stores and manipulates data relative to the players in the
-                    // game.
+public class Player // The Class that stores and manipulates data relative to the players in the game.
 {
     private String userName; // Name of player
     private String userID; // Unique string login for the player
@@ -23,8 +21,7 @@ public class Player // The Class that stores and manipulates data relative to th
     private ArrayList<Integer> availableSFStations; // Arraylist of all stations available to go to on second floor
     private GameMap map; // Map object relative to player
 
-    public Player(String name, String id, String dest, String station, String characterClass)
-            throws FileNotFoundException {
+    public Player(String name, String id, String dest, String station, String characterClass) {
         userName = name;
         userID = id;
         charClass = characterClass;

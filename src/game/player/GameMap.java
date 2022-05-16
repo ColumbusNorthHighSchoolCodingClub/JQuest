@@ -44,12 +44,13 @@ public class GameMap
     public GameMap() {
 		// TODO Auto-generated constructor stub
 	}
-
+    
+    //Adds first floor map station indicators based on available coordinates in FFStations
 	public Image plantFFStations(Image xx, ArrayList<Integer> list)
     {
-        WritableImage result = new WritableImage(ffbackground.getPixelReader(),(int)ffbackground.getWidth(),(int) ffbackground.getHeight());
-        PixelWriter editor = result.getPixelWriter();
-        TransferFFStations(list);
+       WritableImage result = new WritableImage(ffbackground.getPixelReader(),(int)ffbackground.getWidth(),(int) ffbackground.getHeight());
+       PixelWriter editor = result.getPixelWriter();
+       TransferFFStations(list);
        for(String i : FFStations) //Loop through all the available stations
         {
             int Xcoordinate = Integer.valueOf(i.substring(0,i.indexOf(","))); //get x-coordinate
@@ -60,7 +61,8 @@ public class GameMap
         }
         return result;
     }
-    
+
+    //Adds second floor map station indicators based on available coordinates in SFStations
     public Image plantSFStations(Image xx, ArrayList<Integer> list)
     {
         WritableImage result = new WritableImage(sfbackground.getPixelReader(),(int)sfbackground.getWidth(),(int) sfbackground.getHeight());
@@ -77,15 +79,16 @@ public class GameMap
         return result;
     }
     
+    //Sets up x- and y-coordinates for first floor map stations
     public void TransferFFStations(ArrayList<Integer> availableFFStations)
     {
-        System.out.println("got to teh transfer methodFF");
+//        System.out.println("got to the transfer methodFF");
         for(Integer i : availableFFStations)
             switch (i)
             {
                 case 1:
                     FFStations.add("120,100"); //Location of MR Spocks room
-                    System.out.println("got to FFstation1");
+//                    System.out.println("got to FFstation1");
                     break ;
                 case 2:
                     FFStations.add("x,y");
@@ -110,16 +113,17 @@ public class GameMap
                     break;
             }
     }
-    
+
+    //Sets up x- and y-coordinates for second floor map stations
     public void TransferSFStations(ArrayList<Integer> availableSFStations)
     {
-        System.out.println("got to the transfer methodSF"); //check for transfer method in the trasnfer method 
+//        System.out.println("got to the transfer methodSF"); //check for transfer method in the trasnfer method 
         for(Integer i : availableSFStations)
             switch (i)
             {
                 case 1:
                     SFStations.add("150,220"); //Location of Mr Spock's room
-                    System.out.println("got to SFstation1");
+//                    System.out.println("got to SFstation1");
                     break;
                 case 2:
                     SFStations.add("x,y");

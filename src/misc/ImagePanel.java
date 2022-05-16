@@ -63,17 +63,9 @@ public class ImagePanel
     public Scene image;
     public ImagePanel(ArrayList<ImageView> imageViews)
     {
-        Player me;
-        try
-        {
-            me = new Player("demo", "1234", "dest", "station", "goblin"); // creates a player to reference the map
-            GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
-                    me.getStation(), me.getDestination(), me.getTimeline()); // initiallizes the map corresponding to the player class
-        }
-        catch (FileNotFoundException e)
-        {
-            Logger.getLogger(ImagePanel.class.getName()).log(Level.SEVERE, null, e);
-        }
+        Player me = new Player("demo", "1234", "dest", "station", "goblin"); // creates a player to reference the map
+        GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
+                me.getStation(), me.getDestination(), me.getTimeline()); // Initializes the map corresponding to the player class
         Group root = new Group(); // creates a group of pixels 
         Scene scene = new Scene(root);//declasres a scene ont he group of pixels
         for(ImageView view : imageViews)
@@ -86,21 +78,13 @@ public class ImagePanel
     public ImagePanel(String filepath1,String filepath2,int imageWidth,int imageHeight,int rotation,int imageX,int imageY )
     {
 //        panel.setLayout(null);
-        Player me = null;
-		try
-		{
-			me = new Player("demo", "1234", "dest", "station", "goblin");
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		} // creates a player to reference the map
+        Player me = new Player("demo", "1234", "dest", "station", "goblin");
         GameMap map =  new GameMap(me.getAvailableFFStations(), me.getAvailableSFStations(), 
                 me.getStation(), me.getDestination(), me.getTimeline()); // initializes the map corresponding tot he plaeyr class
         Group root = new Group(); // creates a group of pixels 
-        Scene scene = new Scene(root);//declasres a scene ont he group of pixels
+        Scene scene = new Scene(root);//Declares a scene on the group of pixels
         
-        ImageView view = new ImageView(); // an image you can se on a scene
+        ImageView view = new ImageView(); // an image you can see on a scene
         view.setImage(map.plantFFStations(getImage(filepath1), me.getAvailableFFStations())); // call image from the map for the FFstations
         view.setFitHeight(imageWidth);
         view.setFitWidth(imageHeight);

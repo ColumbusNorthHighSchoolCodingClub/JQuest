@@ -41,7 +41,7 @@ public class JFXMedia3 extends JFrame implements ActionListener
 
 
     /**
-     * Constructor Method. Places JFXPanel on the JFrame. Place the button on the JFrame
+     * Constructor Method. Places JFXPanel on the JFrame and place the buttons on the JFrame
      * Plays the initial media
      */
     public JFXMedia3()
@@ -65,10 +65,11 @@ public class JFXMedia3 extends JFrame implements ActionListener
         //all elements of a JFXPanel must be run through a runnable or thread
         Platform.runLater(new Runnable()
         {
+        	//Put media you want to be the initial display here, even though you can update the display right after.
             @Override
             public void run()
             {
-    			Scene scene = new VideoPanel2("src/misc/option1.mp4",600, 302, 270, 0,100).VP2;
+    			Scene scene = new VideoPanel2("src/misc/option1.mp4",600,302,270,0,100).VP2;
                 fxPanel.setLayout(null);        //filepath, media width, height, rotation, x-coordinate, y-coordinate)
                 fxPanel.setScene(scene);
             }
@@ -95,14 +96,7 @@ public class JFXMedia3 extends JFrame implements ActionListener
 	            if(sceneNum < 0) sceneNum = sceneNumMax;
         	}
         	Player me = null;
-            try
-            {
-                me = new Player("demo", "1234", "dest", "station", "goblin");
-            }
-            catch (FileNotFoundException e1)
-            {
-                e1.printStackTrace();
-            } // creates a sample player to reference the map and inventory
+            me = new Player("demo", "1234", "dest", "station", "goblin");
             ArrayList<Integer> fake = new ArrayList<Integer>();
 //            fake = me.getAvailableFFStations();
                 Integer x = 1;
@@ -122,19 +116,19 @@ public class JFXMedia3 extends JFrame implements ActionListener
                 	Scene scene;
                     switch(sceneNum) //This switch case is used to switch between each scene. Scene 0 is a test video, scene 1 is a example of
                     {				 //displaying two images in one line, and scene 2 displays an example for the menu screen, including maps and inventory
-                    	case 0:
+                    	case 0: //This case displays a video from a given file location
                     		//filepath should be filepath of media
                     		scene = new VideoPanel2("src/misc/option1.mp4",600,302,270,0,100).VP2;
                     		fxPanel.setLayout(null);
                     		fxPanel.setScene(scene);
                     		break;
-                    	case 1:
+                    	case 1: //This case displays two images put together for the map
                             //filepath should be filepath of media
                             scene = new ImagePanel("src\\game\\player\\images\\FirstFloor_Reference.png","src\\game\\player\\images\\SecondFloor_Reference.png",302,384,0,0,100).image;  // <---- ImagePanel(first filepath, second file path, image width,
                             fxPanel.setLayout(null);
                             fxPanel.setScene(scene);
                     		break;
-                    	case 2:
+                    	case 2: //This case sets up the map by modifying multiple, individual images and then adding them together in one display
                     		int mapWidth = 300;
                     		int mapHeight = 400; //Width and height of each map section, i.e. Floor 1 and Floor 2
                     		int boxWidth = 100;
