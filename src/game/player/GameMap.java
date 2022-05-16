@@ -22,8 +22,8 @@ public class GameMap
     private Image sfbackground;//Uses image of school layout
     public ArrayList<Integer> availableFFStations;
     public ArrayList<Integer> availableSFStations;
-    public static ArrayList<String> FFStations;
-    public static ArrayList<String> SFStations;
+    public ArrayList<String> FFStations;
+    public ArrayList<String> SFStations;
     
 	public GameMap(ArrayList<Integer> availableffStations,ArrayList<Integer> availablesfStations,String currentStation,String currentDestination,String currentTimeline)
 	{
@@ -49,9 +49,15 @@ public class GameMap
     {
         WritableImage result = new WritableImage(ffbackground.getPixelReader(),(int)ffbackground.getWidth(),(int) ffbackground.getHeight());
         PixelWriter editor = result.getPixelWriter();
-        for(int x=30; x<40;x++)
-            for(int y=30; y<40;y++)
-                editor.setColor(x, y, Color.GREEN);
+        TransferFFStations(list);
+       for(String i : FFStations) //Loop through all the available stations
+        {
+            int Xcoordinate = Integer.valueOf(i.substring(0,i.indexOf(","))); //get x-coordinate
+            int Ycoordinate = Integer.valueOf(i.substring(i.indexOf(",")+1)); //get y-coordinate
+            for(int x=Xcoordinate; x<Xcoordinate+15; x++)
+                for(int y=Ycoordinate; y<Ycoordinate+15;y++)
+                  editor.setColor(x, y, Color.GREEN);
+        }
         return result;
     }
     
@@ -59,27 +65,27 @@ public class GameMap
     {
         WritableImage result = new WritableImage(sfbackground.getPixelReader(),(int)sfbackground.getWidth(),(int) sfbackground.getHeight());
         PixelWriter editor = result.getPixelWriter();
-        TransferFFStations(list);
-        for(String i : SFStations) //Loop through all the available stations
+        TransferSFStations(list);
+       for(String i : SFStations) //Loop through all the available stations
         {
             int Xcoordinate = Integer.valueOf(i.substring(0,i.indexOf(","))); //get x-coordinate
             int Ycoordinate = Integer.valueOf(i.substring(i.indexOf(",")+1)); //get y-coordinate
-            for(int x=Xcoordinate; x<Xcoordinate+40; x++)
-                for(int y=Ycoordinate; y<Ycoordinate+40;y++)
-                  editor.setColor(x, y, Color.CORAL);
+            for(int x=Xcoordinate; x<Xcoordinate+15; x++)
+                for(int y=Ycoordinate; y<Ycoordinate+15;y++)
+                  editor.setColor(x, y, Color.BLUE);
         }
         return result;
     }
     
     public void TransferFFStations(ArrayList<Integer> availableFFStations)
     {
-        
+        System.out.println("got to teh transfer methodFF");
         for(Integer i : availableFFStations)
             switch (i)
             {
                 case 1:
-                    FFStations.add("200,200");
-                    System.out.println("got to station1");
+                    FFStations.add("120,100"); //Location of MR Spocks room
+                    System.out.println("got to FFstation1");
                     break ;
                 case 2:
                     FFStations.add("x,y");
@@ -107,13 +113,13 @@ public class GameMap
     
     public void TransferSFStations(ArrayList<Integer> availableSFStations)
     {
-        
+        System.out.println("got to the transfer methodSF"); //check for transfer method in the trasnfer method 
         for(Integer i : availableSFStations)
             switch (i)
             {
                 case 1:
-                    SFStations.add("50,50");
-                    System.out.println("got to station1");
+                    SFStations.add("150,220"); //Location of Mr Spock's room
+                    System.out.println("got to SFstation1");
                     break;
                 case 2:
                     SFStations.add("x,y");

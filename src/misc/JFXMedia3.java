@@ -105,10 +105,11 @@ public class JFXMedia3 extends JFrame implements ActionListener
             } // creates a sample player to reference the map and inventory
             ArrayList<Integer> fake = new ArrayList<Integer>();
 //            fake = me.getAvailableFFStations();
-            fake.add(1);
-            ArrayList<Integer> fake2 = new ArrayList<Integer>();
+                Integer x = 1;
+                fake.add(x);
+                ArrayList<Integer> fake2 = new ArrayList<Integer>();
 //            fake2 = me.getAvailableSFStations();
-            fake2.add(1);
+                fake2.add(x);
         	GameMap map =  new GameMap(fake, fake2, 
                     me.getStation(), me.getDestination(), me.getTimeline()); // Initializes the map corresponding to the player class
         	Inventory inv =  me.getInventory(); // Initializes the inventory corresponding to the player class
