@@ -9,6 +9,13 @@ import java.util.concurrent.CompletableFuture;
 
 import common.SocketContainer;
 
+/**
+ * Client that connects to a server.
+ * 
+ * For JQuest, each "Client" would be a station. This would probably best be
+ * done by creating Station classes that contain a Client object--see
+ * TemplateStation for how this can be done!
+ */
 public class Client {
 
     private final String identifier;
@@ -55,31 +62,30 @@ public class Client {
             socket = new Socket(serverIp, port);
             System.out.println("Client " + identifier + " has connected to server " + serverIp + " on port " + port);
             socketContainer = new SocketContainer(socket);
+
+            // Tells the server this Client's identifier (name)
             socketContainer.writeUTF("ID:" + identifier);
             socketContainer.setIdentifier(identifier);
 
             TimerTask task = new TimerTask() {
-
                 @Override
                 public void run() {
-//					socketContainer.writeObject("PING:" + pingCount);
-//					// System.out.println(pingCount);
-//					pingCount++;
-//					// System.out.println("Ping!");
+                    // Put any code that must be continuously run while connected to server here...
+                    // (For instance, if you want the client to continuously ping the server)
                 }
-
             };
             Timer timer = new Timer();
             timer.schedule(task, 100, 200);
 
             return true;
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
 
         return false;
     }
 
+    // Instance variable used as part of sendAndAwaitReply method
     private String lastReceivedData = null;
 
     /**
@@ -92,18 +98,22 @@ public class Client {
      * @return the server's reply, or null if timed out
      */
     public String sendAndAwaitReply(String data, int timeout) {
-
+        // Set lastReceivedData to null to indicate no new data has been received
         lastReceivedData = null;
+
+        // Write data to server
         socketContainer.writeUTF(data);
 
         long initialTime = System.currentTimeMillis();
         long stopTime = initialTime + timeout;
 
+        // Start new thread that tries to read data from the server
         Thread awaitReplyThread = new Thread(() -> lastReceivedData = socketContainer.readUTF());
         awaitReplyThread.start();
 
+        // Interrupt the thread if data has been received OR timeout has been exceeded
         while (!awaitReplyThread.isInterrupted()) {
-            if (System.currentTimeMillis() > stopTime) {
+            if (lastReceivedData != null || System.currentTimeMillis() > stopTime) {
                 awaitReplyThread.interrupt();
             }
         }
@@ -127,17 +137,10 @@ public class Client {
         try {
             return complete.get();
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return null;
 
     }
-
-//    //data comes from GameManager and contains HashMap entry with gameID
-//    public abstract String packData(HashMap<String,String> data);
-//    
-//    
-//    //unpacks, and after unpacking, client checks gameID and sends to respective game instance
-//    public abstract HashMap<String,String> unpackData(String data);
 
 }

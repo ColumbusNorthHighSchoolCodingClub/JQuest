@@ -156,12 +156,72 @@ public class Player // The Class that stores and manipulates data relative to th
 
     
     /*
-     * Commands are given as follows:
+     * Gives a single command to this player in the format:
      * 
-     * addHealth 10
-     * addMoney 30
+     *      keyword argumentIfApplicable
      * 
+     * For example:
      * 
+     *      addHealth 10
+     *  
+     * Or simply:
+     * 
+     *      resetHealth
+     *  
+     * If the command asks for some sort of information (e.g. getHealth), this 
+     * method will return that data in the form of a String. Otherwise, this method
+     * simply returns null.
+     * 
+     */
+    public String giveSingleCommand(String command) {
+        command = command.trim();
+        if (command.length() > 0) {
+            String[] args = command.split(" ");
+            String keyword = args[0];
+
+            if (keyword.equals("addHealth")) {
+                int amount = Integer.valueOf(args[1]);
+                addHealth(amount);
+            }
+            if (keyword.equals("removeHealth")) {
+                int amount = Integer.valueOf(args[1]);
+                removeHealth(amount);
+            }
+            if (keyword.equals("resetHealth")) {
+                resetHealth();
+            }
+            if (keyword.equals("getHealth")) {
+                return Integer.toString(this.getHealth());
+            }
+            if (keyword.equals("addMoney")) {
+                int amount = Integer.valueOf(args[1]);
+                addMoney(amount);
+            }
+            if (keyword.equals("removeMoney")) {
+                int amount = Integer.valueOf(args[1]);
+                removeMoney(amount);
+            }
+            if (keyword.equals("getMoney")) {
+                return Integer.toString(this.getMoney());
+            }
+            if (keyword.equals("removeItem")) {
+                String itemName = args[1];
+                removeItem(itemName);
+            }
+        }
+
+        // If nothing has been returned yet, return null
+        return null;
+    }
+
+    /*
+     * Supports multiple commands at once. Commands are given as follows:
+     * 
+     *  addHealth 10 addMoney 30
+     *  
+     * NOTE: Currently not in use! the giveSingleCommand method better accommodates
+     * the current networking setup. I am leaving this method here in case support
+     * for multiple commands is ever needed/wanted in the future.
      */
     public void giveCommand(String command) {
         if (command.length() > 0) {

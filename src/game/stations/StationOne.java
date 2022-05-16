@@ -24,7 +24,7 @@ public class StationOne extends TemplateStation {
         frame.pack();
         frame.setVisible(true);
 
-        JLabel inputLabel = new JLabel("Player ID Number:");
+        JLabel inputLabel = new JLabel("Player ID:");
         frame.add(inputLabel);
 
         JTextField inputField = new JTextField();
@@ -55,7 +55,12 @@ public class StationOne extends TemplateStation {
         JButton addMoneyButton = new JButton("Add Monies");
         addMoneyButton.addActionListener(e -> {
             int moneyAmount = Integer.parseInt(addMoneyInput.getText());
-            this.sendData("UPDATE:" + currentUserId + ";" + "addMoney " + moneyAmount);
+            this.addMoneyToPlayer(moneyAmount);
+            try {
+                profileDisplay.setText(Integer.toString(this.getPlayerMoney()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
         frame.add(addMoneyButton);
 
