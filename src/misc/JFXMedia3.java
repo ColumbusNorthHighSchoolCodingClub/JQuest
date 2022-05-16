@@ -120,8 +120,8 @@ public class JFXMedia3 extends JFrame implements ActionListener
                 public void run()
                 {
                 	Scene scene;
-                    switch(sceneNum)
-                    {
+                    switch(sceneNum) //This switch case is used to switch between each scene. Scene 0 is a test video, scene 1 is a example of
+                    {				 //displaying two images in one line, and scene 2 displays an example for the menu screen, including maps and inventory
                     	case 0:
                     		//filepath should be filepath of media
                     		scene = new VideoPanel2("src/misc/option1.mp4",600,302,270,0,100).VP2;
@@ -136,11 +136,11 @@ public class JFXMedia3 extends JFrame implements ActionListener
                     		break;
                     	case 2:
                     		int mapWidth = 300;
-                    		int mapHeight = 400;
+                    		int mapHeight = 400; //Width and height of each map section, i.e. Floor 1 and Floor 2
                     		int boxWidth = 100;
-                    		int boxHeight = 100;
+                    		int boxHeight = 100; //Width and height of inventory boxes
                     		int boxXOffset = 50;
-                    		int boxYOffset = 400;
+                    		int boxYOffset = 400; //Base x and y offsets for inventory boxes
                     		int mapScalar = screenHeight/(2*mapHeight);
                     		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\FirstFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,mapWidth/4,mapHeight/4,0,map));
                     		imgViews.add(ImagePanel.createImageView("src\\game\\player\\images\\SecondFloor_Reference.png",mapWidth*mapScalar,mapHeight*mapScalar,screenWidth/2-mapWidth/4/4,mapHeight/4,0,map));
@@ -153,7 +153,7 @@ public class JFXMedia3 extends JFrame implements ActionListener
                             fxPanel.setScene(scene);
                             break;
                     	default:
-                    		//filepath should be filepath of video
+                    		//filepath should be filepath of media
                     		scene = new VideoPanel2("src/misc/option1.mp4",600, 302, 270, 0,100).VP2;
                     		fxPanel.setLayout(null);
                     		fxPanel.setScene(scene);
